@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excellentia Digital Academy - CBT</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f5f9;
+  color: #222;
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+}
+
+.header {
+  background: #075e54;
+  color: white;
+  text-align: center;
+  padding: 25px 15px;
+  border-radius: 0 0 20px 20px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.header p {
+  margin: 8px 0 0;
+}
+
+.card {
+  background: white;
+  margin-top: 20px;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #075e54;
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #064c44;
+}
+
+.hidden {
+  display: none;
+}
+
+.timer {
+  background: #fff3cd;
+  color: #856404;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.question-number {
+  color: #075e54;
+  font-weight: bold;
+}
+
+.option {
+  display: block;
+  background: #f5f5f5;
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background: #e8f5f3;
+}
+
+.option input {
+  width: auto;
+  margin-right: 10px;
+}
+
+.result {
+  text-align: center;
+}
+
+.score {
+  font-size: 40px;
+  font-weight: bold;
+  color: #075e54;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>Excellentia Digital Academy</h1>
+  <p>Computer Based Test (CBT)</p>
+</div>
+
+<div class="container">
+
+  <!-- START PAGE -->
+  <div id="startPage" class="card">
+    <h2>Welcome to the CBT</h2>
+
+    <p>Please enter your name to begin.</p>
+
+    <input type="text" id="studentName" placeholder="Enter your full name">
+
+    <button onclick="startTest()">Start Test</button>
+  </div>
+
+  <!-- TEST PAGE -->
+  <div id="testPage" class="card hidden">
+
+    <div class="timer">
+      Time Remaining: <span id="timer">10:00</span>
+    </div>
+
+    <div id="questionContainer"></div>
+
+    <button onclick="nextQuestion()" id="nextButton">
+      Next Question
+    </button>
+
+  </div>
+
+  <!-- RESULT PAGE -->
+  <div id="resultPage" class="card hidden result">
+
+    <h2>Test Completed!</h2>
+
+    <p id="studentResult"></p>
+
+    <p>Your Score</p>
+
+    <div class="score" id="score"></div>
+
+    <p id="message"></p>
+
+    <button onclick="location.reload()">Take Test Again</button>
+
+  </div>
+
+</div>
+
+<script>
+
+const questions = [
+
+  {
+    question: "What is the full meaning of CPU?",
+    options: [
+      "Central Processing Unit",
+      "Computer Personal Unit",
+      "Central Program Utility",
+      "Computer Processing Utility"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "Which device is used to type information into a computer?",
+    options: [
+      "Monitor",
+      "Keyboard",
+      "Speaker",
+      "Printer"
+    ],
+    answer: 1
+  },
+
+  {
+    question: "Which of these is an output device?",
+    options: [
+      "Keyboard",
+      "Mouse",
+      "Monitor",
+      "Scanner"
+    ],
+    answer: 2
+  },
+
+  {
+    question: "Which software is used to browse the internet?",
+    options: [
+      "Web browser",
+      "Calculator",
+      "Paint",
+      "Notepad"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "Which one is a storage device?",
+    options: [
+      "Keyboard",
+      "Hard drive",
+      "Monitor",
+      "Mouse"
+    ],
+    answer: 1
+  },
+
+  {
+    question: "What does HTML stand for?",
+    options: [
+      "Hyper Text Markup Language",
+      "High Text Machine Language",
+      "Hyper Tool Markup Language",
+      "Home Text Markup Language"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "Which key is normally used to create a space between words?",
+    options: [
+      "Enter",
+      "Shift",
+      "Spacebar",
+      "Backspace"
+    ],
+    answer: 2
+  },
+
+  {
+    question: "Which of these is an operating system?",
+    options: [
+      "Windows",
+      "Google",
+      "Facebook",
+      "YouTube"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "Which device allows a computer to connect to a network?",
+    options: [
+      "Network adapter",
+      "Keyboard",
+      "Printer",
+      "Monitor"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "What is used to move the pointer on a computer screen?",
+    options: [
+      "Mouse",
+      "Printer",
+      "Speaker",
+      "Scanner"
+    ],
+    answer: 0
+  }
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+let studentName = "";
+let timeLeft = 600;
+let timerInterval;
+
+function startTest() {
+
+  studentName = document.getElementById("studentName").value.trim();
+
+  if (studentName === "") {
+    alert("Please enter your name.");
+    return;
+  }
+
+  document.getElementById("startPage").classList.add("hidden");
+  document.getElementById("testPage").classList.remove("hidden");
+
+  showQuestion();
+
+  timerInterval = setInterval(updateTimer, 1000);
+}
+
+function showQuestion() {
+
+  const q = questions[currentQuestion];
+
+  let html = `
+    <p class="question-number">
+      Question ${currentQuestion + 1} of ${questions.length}
+    </p>
+
+    <h3>${q.question}</h3>
+  `;
+
+  q.options.forEach((option, index) => {
+
+    html += `
+      <label class="option">
+        <input type="radio" name="answer" value="${index}">
+        ${option}
+      </label>
+    `;
+
+  });
+
+  document.getElementById("questionContainer").innerHTML = html;
+
+  if (currentQuestion === questions.length - 1) {
+    document.getElementById("nextButton").textContent = "Submit Test";
+  } else {
+    document.getElementById("nextButton").textContent = "Next Question";
+  }
+}
+
+function nextQuestion() {
+
+  const selected = document.querySelector(
+    'input[name="answer"]:checked'
+  );
+
+  if (!selected) {
+    alert("Please select an answer.");
+    return;
+  }
+
+  if (parseInt(selected.value) === questions[currentQuestion].answer) {
+    score++;
+  }
+
+  currentQuestion++;
+
+  if (currentQuestion < questions.length) {
+
+    showQuestion();
+
+  } else {
+
+    finishTest();
+
+  }
+}
+
+function updateTimer() {
+
+  timeLeft--;
+
+  let minutes = Math.floor(timeLeft / 60);
+  let seconds = timeLeft % 60;
+
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+
+  document.getElementById("timer").textContent =
+    minutes + ":" + seconds;
+
+  if (timeLeft <= 0) {
+    finishTest();
+  }
+}
+
+function finishTest() {
+
+  clearInterval(timerInterval);
+
+  document.getElementById("testPage").classList.add("hidden");
+  document.getElementById("resultPage").classList.remove("hidden");
+
+  document.getElementById("studentResult").textContent =
+    "Student: " + studentName;
+
+  document.getElementById("score").textContent =
+    score + " / " + questions.length;
+
+  let percentage = (score / questions.length) * 100;
+
+  if (percentage >= 70) {
+    document.getElementById("message").textContent =
+      "Excellent performance! Congratulations.";
+  } else if (percentage >= 50) {
+    document.getElementById("message").textContent =
+      "Good effort. Keep studying and improving.";
+  } else {
+    document.getElementById("message").textContent =
+      "Keep practicing. You can do better next time.";
+  }
+}
+
+</script>
+
+</body>
+  </html>
