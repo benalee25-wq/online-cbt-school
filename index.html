@@ -83,6 +83,11 @@ button:hover {
   background: #064c44;
 }
 
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .timer {
   background: #fff3cd;
   color: #856404;
@@ -149,6 +154,20 @@ button:hover {
   border-radius: 10px;
   margin: 15px 0;
 }
+
+.loading {
+  text-align: center;
+  padding: 30px;
+  color: #075e54;
+}
+
+.error-box {
+  background: #fdecea;
+  color: #b71c1c;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 0;
+}
 </style>
 </head>
 
@@ -175,7 +194,7 @@ button:hover {
     placeholder="Enter your full name"
   >
 
-  <button onclick="continueToSubjects()">
+  <button onclick="continueToSubjects()" id="startButton">
     Continue
   </button>
 
@@ -196,28 +215,8 @@ button:hover {
     Select the subject you want to write.
   </div>
 
-  <div class="subject-box" onclick="selectSubject('Mathematics')">
-    📐 <strong>Mathematics</strong>
-  </div>
-
-  <div class="subject-box" onclick="selectSubject('English')">
-    📖 <strong>English Language</strong>
-  </div>
-
-  <div class="subject-box" onclick="selectSubject('Biology')">
-    🧬 <strong>Biology</strong>
-  </div>
-
-  <div class="subject-box" onclick="selectSubject('Chemistry')">
-    ⚗️ <strong>Chemistry</strong>
-  </div>
-
-  <div class="subject-box" onclick="selectSubject('Physics')">
-    ⚡ <strong>Physics</strong>
-  </div>
-
-  <div class="subject-box" onclick="selectSubject('Computer Studies')">
-    💻 <strong>Computer Studies</strong>
+  <div id="subjectList">
+    <div class="loading">Loading subjects...</div>
   </div>
 
 </div>
@@ -267,6 +266,8 @@ button:hover {
 
   <p id="message"></p>
 
+  <p id="saveStatus" style="font-size: 14px; color: #666;"></p>
+
   <button onclick="location.reload()">
     Take Another Test
   </button>
@@ -275,345 +276,22 @@ button:hover {
 
 </div>
 
+<!-- Supabase client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
 /* =========================
-   QUESTIONS
+   SUPABASE CONFIG
 ========================= */
 
-const questionBank = {
+const SUPABASE_URL = "https://ilealjmhymujcoolptbe.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_eyZTQOA0_mLdxqVH3LUmvw_gsll1hBi";
 
-Mathematics: [
-
-{
-question: "What is 5 + 7?",
-options: ["10", "11", "12", "13"],
-answer: 2
-},
-
-{
-question: "What is 10 × 5?",
-options: ["15", "50", "55", "100"],
-answer: 1
-},
-
-{
-question: "What is half of 20?",
-options: ["5", "10", "15", "20"],
-answer: 1
-},
-
-{
-question: "What is 100 ÷ 10?",
-options: ["5", "10", "20", "50"],
-answer: 1
-},
-
-{
-question: "What is 9 × 9?",
-options: ["72", "81", "90", "99"],
-answer: 1
-}
-
-],
-
-English: [
-
-{
-question: "Choose the correct spelling.",
-options: [
-"Beautifull",
-"Beautiful",
-"Beutiful",
-"Beautifol"
-],
-answer: 1
-},
-
-{
-question: "Which word is a noun?",
-options: [
-"Run",
-"Beautiful",
-"School",
-"Quickly"
-],
-answer: 2
-},
-
-{
-question: "Choose the opposite of 'Hot'.",
-options: [
-"Warm",
-"Cold",
-"Heat",
-"Fire"
-],
-answer: 1
-},
-
-{
-question: "Which word is a verb?",
-options: [
-"Jump",
-"Table",
-"Beautiful",
-"House"
-],
-answer: 0
-},
-
-{
-question: "Choose the correct sentence.",
-options: [
-"He are going home.",
-"He is going home.",
-"He am going home.",
-"He be going home."
-],
-answer: 1
-}
-
-],
-
-Biology: [
-
-{
-question: "What is the basic unit of life?",
-options: [
-"Tissue",
-"Organ",
-"Cell",
-"Bone"
-],
-answer: 2
-},
-
-{
-question: "Which organ pumps blood around the body?",
-options: [
-"Brain",
-"Heart",
-"Lung",
-"Kidney"
-],
-answer: 1
-},
-
-{
-question: "Plants make their food through?",
-options: [
-"Respiration",
-"Digestion",
-"Photosynthesis",
-"Transpiration"
-],
-answer: 2
-},
-
-{
-question: "Which organ is used for breathing?",
-options: [
-"Heart",
-"Lung",
-"Stomach",
-"Brain"
-],
-answer: 1
-},
-
-{
-question: "Which of these is a mammal?",
-options: [
-"Fish",
-"Frog",
-"Dog",
-"Lizard"
-],
-answer: 2
-}
-
-],
-
-Chemistry: [
-
-{
-question: "What is the chemical symbol for water?",
-options: [
-"CO2",
-"H2O",
-"O2",
-"NaCl"
-],
-answer: 1
-},
-
-{
-question: "What gas do humans breathe in?",
-options: [
-"Carbon dioxide",
-"Oxygen",
-"Nitrogen",
-"Hydrogen"
-],
-answer: 1
-},
-
-{
-question: "What is NaCl commonly called?",
-options: [
-"Sugar",
-"Water",
-"Salt",
-"Acid"
-],
-answer: 2
-},
-
-{
-question: "Which of these is an element?",
-options: [
-"Water",
-"Oxygen",
-"Salt",
-"Sugar"
-],
-answer: 1
-},
-
-{
-question: "What is the symbol for oxygen?",
-options: [
-"O",
-"Ox",
-"C",
-"Og"
-],
-answer: 0
-}
-
-],
-
-Physics: [
-
-{
-question: "What force pulls objects toward the Earth?",
-options: [
-"Friction",
-"Gravity",
-"Magnetism",
-"Pressure"
-],
-answer: 1
-},
-
-{
-question: "What is the SI unit of force?",
-options: [
-"Joule",
-"Watt",
-"Newton",
-"Volt"
-],
-answer: 2
-},
-
-{
-question: "Which device measures temperature?",
-options: [
-"Barometer",
-"Thermometer",
-"Speedometer",
-"Voltmeter"
-],
-answer: 1
-},
-
-{
-question: "Light travels fastest through?",
-options: [
-"Water",
-"Glass",
-"Air",
-"Vacuum"
-],
-answer: 3
-},
-
-{
-question: "What is the unit of electrical current?",
-options: [
-"Volt",
-"Ampere",
-"Watt",
-"Ohm"
-],
-answer: 1
-}
-
-],
-
-"Computer Studies": [
-
-{
-question: "What is the full meaning of CPU?",
-options: [
-"Central Processing Unit",
-"Computer Personal Unit",
-"Central Program Utility",
-"Computer Processing Utility"
-],
-answer: 0
-},
-
-{
-question: "Which device is used to type information?",
-options: [
-"Monitor",
-"Keyboard",
-"Speaker",
-"Printer"
-],
-answer: 1
-},
-
-{
-question: "Which is an output device?",
-options: [
-"Keyboard",
-"Mouse",
-"Monitor",
-"Scanner"
-],
-answer: 2
-},
-
-{
-question: "What does HTML stand for?",
-options: [
-"Hyper Text Markup Language",
-"High Text Machine Language",
-"Hyper Tool Markup Language",
-"Home Text Markup Language"
-],
-answer: 0
-},
-
-{
-question: "Which is a storage device?",
-options: [
-"Keyboard",
-"Hard drive",
-"Monitor",
-"Mouse"
-],
-answer: 1
-}
-
-]
-
-};
+const sb = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
 
 
 /* =========================
@@ -621,76 +299,178 @@ answer: 1
 ========================= */
 
 let studentName = "";
+let candidateId = null;
 
 let selectedSubject = "";
+let selectedSubjectId = null;
 
+let subjectsCache = [];
 let questions = [];
 
 let currentQuestion = 0;
-
 let score = 0;
-
 let timeLeft = 600;
-
 let timerInterval;
 
 
 /* =========================
-   STUDENT NAME
+   STUDENT NAME -> SAVE CANDIDATE
 ========================= */
 
-function continueToSubjects() {
+async function continueToSubjects() {
 
-studentName =
-document.getElementById("studentName").value.trim();
+  studentName = document.getElementById("studentName").value.trim();
 
-if (studentName === "") {
+  if (studentName === "") {
+    alert("Please enter your full name.");
+    return;
+  }
 
-alert("Please enter your full name.");
+  const startButton = document.getElementById("startButton");
+  startButton.disabled = true;
+  startButton.textContent = "Please wait...";
 
-return;
+  try {
 
-}
+    const { data, error } = await sb
+      .from("candidates")
+      .insert({ full_name: studentName })
+      .select()
+      .single();
 
-document.getElementById("displayName").textContent =
-studentName;
+    if (error) throw error;
 
-document.getElementById("startPage").classList.add("hidden");
+    candidateId = data.id;
 
-document.getElementById("subjectPage").classList.remove("hidden");
+    document.getElementById("displayName").textContent = studentName;
+
+    document.getElementById("startPage").classList.add("hidden");
+    document.getElementById("subjectPage").classList.remove("hidden");
+
+    loadSubjects();
+
+  } catch (err) {
+
+    console.error(err);
+    alert("Could not start the test. Please check your connection and try again.");
+
+  } finally {
+
+    startButton.disabled = false;
+    startButton.textContent = "Continue";
+
+  }
 
 }
 
 
 /* =========================
-   SELECT SUBJECT
+   LOAD SUBJECTS FROM SUPABASE
 ========================= */
 
-function selectSubject(subject) {
+async function loadSubjects() {
 
-selectedSubject = subject;
+  const listEl = document.getElementById("subjectList");
 
-questions = questionBank[subject];
+  try {
 
-currentQuestion = 0;
+    const { data, error } = await sb
+      .from("subjects")
+      .select("id, name")
+      .order("name");
 
-score = 0;
+    if (error) throw error;
 
-timeLeft = 600;
+    if (!data || data.length === 0) {
+      listEl.innerHTML = '<div class="error-box">No subjects found. Please contact the administrator.</div>';
+      return;
+    }
 
-document.getElementById("subjectPage").classList.add("hidden");
+    subjectsCache = data;
 
-document.getElementById("testPage").classList.remove("hidden");
+    const icons = {
+      "Mathematics": "📐",
+      "English": "📖",
+      "Biology": "🧬",
+      "Chemistry": "⚗️",
+      "Physics": "⚡",
+      "Computer Studies": "💻"
+    };
 
-document.getElementById("testStudent").textContent =
-studentName;
+    listEl.innerHTML = data.map(subject => `
+      <div class="subject-box" onclick="selectSubject('${subject.id}', '${subject.name.replace(/'/g, "\\'")}')">
+        ${icons[subject.name] || "📘"} <strong>${subject.name}</strong>
+      </div>
+    `).join("");
 
-document.getElementById("testSubject").textContent =
-selectedSubject;
+  } catch (err) {
 
-showQuestion();
+    console.error(err);
+    listEl.innerHTML = '<div class="error-box">Could not load subjects. Please check your connection and reload.</div>';
 
-timerInterval = setInterval(updateTimer, 1000);
+  }
+
+}
+
+
+/* =========================
+   SELECT SUBJECT -> LOAD QUESTIONS
+========================= */
+
+async function selectSubject(subjectId, subjectName) {
+
+  selectedSubjectId = subjectId;
+  selectedSubject = subjectName;
+
+  document.getElementById("subjectPage").classList.add("hidden");
+  document.getElementById("testPage").classList.remove("hidden");
+
+  document.getElementById("testStudent").textContent = studentName;
+  document.getElementById("testSubject").textContent = selectedSubject;
+
+  document.getElementById("questionContainer").innerHTML =
+    '<div class="loading">Loading questions...</div>';
+  document.getElementById("nextButton").disabled = true;
+
+  try {
+
+    const { data, error } = await sb
+      .from("questions")
+      .select("*")
+      .eq("subject_id", subjectId);
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      document.getElementById("questionContainer").innerHTML =
+        '<div class="error-box">No questions found for this subject.</div>';
+      return;
+    }
+
+    questions = data.map(row => ({
+      id: row.id,
+      question: row.question,
+      options: [row.option_a, row.option_b, row.option_c, row.option_d],
+      answer: row.correct_index
+    }));
+
+    currentQuestion = 0;
+    score = 0;
+    timeLeft = 600;
+
+    document.getElementById("nextButton").disabled = false;
+
+    showQuestion();
+
+    timerInterval = setInterval(updateTimer, 1000);
+
+  } catch (err) {
+
+    console.error(err);
+    document.getElementById("questionContainer").innerHTML =
+      '<div class="error-box">Could not load questions. Please check your connection and reload.</div>';
+
+  }
 
 }
 
@@ -701,52 +481,28 @@ timerInterval = setInterval(updateTimer, 1000);
 
 function showQuestion() {
 
-const q = questions[currentQuestion];
+  const q = questions[currentQuestion];
 
-let html = `
+  let html = `
+    <p class="question-number">
+      Question ${currentQuestion + 1} of ${questions.length}
+    </p>
+    <h3>${q.question}</h3>
+  `;
 
-<p class="question-number">
-Question ${currentQuestion + 1}
-of ${questions.length}
-</p>
+  q.options.forEach((option, index) => {
+    html += `
+      <label class="option">
+        <input type="radio" name="answer" value="${index}">
+        ${option}
+      </label>
+    `;
+  });
 
-<h3>${q.question}</h3>
+  document.getElementById("questionContainer").innerHTML = html;
 
-`;
-
-q.options.forEach((option, index) => {
-
-html += `
-
-<label class="option">
-
-<input
-type="radio"
-name="answer"
-value="${index}"
->
-
-${option}
-
-</label>
-
-`;
-
-});
-
-document.getElementById("questionContainer").innerHTML = html;
-
-if (currentQuestion === questions.length - 1) {
-
-document.getElementById("nextButton").textContent =
-"Submit Test";
-
-} else {
-
-document.getElementById("nextButton").textContent =
-"Next Question";
-
-}
+  document.getElementById("nextButton").textContent =
+    currentQuestion === questions.length - 1 ? "Submit Test" : "Next Question";
 
 }
 
@@ -757,40 +513,24 @@ document.getElementById("nextButton").textContent =
 
 function nextQuestion() {
 
-const selected =
-document.querySelector(
-'input[name="answer"]:checked'
-);
+  const selected = document.querySelector('input[name="answer"]:checked');
 
-if (!selected) {
+  if (!selected) {
+    alert("Please select an answer.");
+    return;
+  }
 
-alert("Please select an answer.");
+  if (parseInt(selected.value) === questions[currentQuestion].answer) {
+    score++;
+  }
 
-return;
+  currentQuestion++;
 
-}
-
-if (
-parseInt(selected.value)
-===
-questions[currentQuestion].answer
-) {
-
-score++;
-
-}
-
-currentQuestion++;
-
-if (currentQuestion < questions.length) {
-
-showQuestion();
-
-} else {
-
-finishTest();
-
-}
+  if (currentQuestion < questions.length) {
+    showQuestion();
+  } else {
+    finishTest();
+  }
 
 }
 
@@ -801,87 +541,76 @@ finishTest();
 
 function updateTimer() {
 
-timeLeft--;
+  timeLeft--;
 
-let minutes =
-Math.floor(timeLeft / 60);
+  let minutes = Math.floor(timeLeft / 60);
+  let seconds = timeLeft % 60;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
 
-let seconds =
-timeLeft % 60;
+  document.getElementById("timer").textContent = minutes + ":" + seconds;
 
-seconds =
-seconds < 10
-? "0" + seconds
-: seconds;
-
-document.getElementById("timer").textContent =
-minutes + ":" + seconds;
-
-if (timeLeft <= 0) {
-
-finishTest();
-
-}
+  if (timeLeft <= 0) {
+    finishTest();
+  }
 
 }
 
 
 /* =========================
-   FINISH TEST
+   FINISH TEST -> SAVE RESULT
 ========================= */
 
-function finishTest() {
+async function finishTest() {
 
-clearInterval(timerInterval);
+  clearInterval(timerInterval);
 
-document.getElementById("testPage")
-.classList.add("hidden");
+  document.getElementById("testPage").classList.add("hidden");
+  document.getElementById("resultPage").classList.remove("hidden");
 
-document.getElementById("resultPage")
-.classList.remove("hidden");
+  const percentage = Math.round((score / questions.length) * 100);
 
-let percentage =
-Math.round(
-(score / questions.length) * 100
-);
+  document.getElementById("studentResult").textContent = "Student: " + studentName;
+  document.getElementById("subjectResult").textContent = "Subject: " + selectedSubject;
+  document.getElementById("score").textContent = score + " / " + questions.length;
+  document.getElementById("percentage").textContent = "Percentage: " + percentage + "%";
 
-document.getElementById("studentResult").textContent =
-"Student: " + studentName;
+  if (percentage >= 70) {
+    document.getElementById("message").textContent = "Excellent performance! Congratulations.";
+  } else if (percentage >= 50) {
+    document.getElementById("message").textContent = "Good effort. Keep studying and improving.";
+  } else {
+    document.getElementById("message").textContent = "Keep practicing. You can do better next time.";
+  }
 
-document.getElementById("subjectResult").textContent =
-"Subject: " + selectedSubject;
+  const saveStatusEl = document.getElementById("saveStatus");
+  saveStatusEl.textContent = "Saving your result...";
 
-document.getElementById("score").textContent =
-score + " / " + questions.length;
+  try {
 
-document.getElementById("percentage").textContent =
-"Percentage: " + percentage + "%";
+    const { error } = await sb.from("results").insert({
+      candidate_id: candidateId,
+      subject_id: selectedSubjectId,
+      student_name: studentName,
+      subject_name: selectedSubject,
+      score: score,
+      total_questions: questions.length,
+      percentage: percentage
+    });
 
+    if (error) throw error;
 
-if (percentage >= 70) {
+    saveStatusEl.textContent = "Result saved successfully.";
 
-document.getElementById("message").textContent =
-"Excellent performance! Congratulations.";
+  } catch (err) {
 
-}
+    console.error(err);
+    saveStatusEl.textContent = "Note: result could not be saved (no connection).";
 
-else if (percentage >= 50) {
-
-document.getElementById("message").textContent =
-"Good effort. Keep studying and improving.";
-
-}
-
-else {
-
-document.getElementById("message").textContent =
-"Keep practicing. You can do better next time.";
-
-}
+  }
 
 }
 
 </script>
 
 </body>
-</html>
+  </html>
