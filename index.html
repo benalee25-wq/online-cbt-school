@@ -355,7 +355,7 @@ async function continueToSubjects() {
   } catch (err) {
 
     console.error(err);
-    alert("Could not start the test. Please check your connection and try again.");
+    alert("Could not start the test.\n\nDetails: " + (err.message || JSON.stringify(err)));
 
   } finally {
 
