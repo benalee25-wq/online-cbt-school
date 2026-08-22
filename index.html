@@ -1,4 +1,4 @@
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -180,6 +180,8 @@ button:disabled {
 
 <div class="container">
 
+<!-- STEP 1: STUDENT NAME -->
+
 <div id="startPage" class="card">
 
   <h2>Welcome to the CBT</h2>
@@ -199,6 +201,8 @@ button:disabled {
 </div>
 
 
+<!-- STEP 2: SUBJECT SELECTION -->
+
 <div id="subjectPage" class="card hidden">
 
   <h2>Select Your Subject</h2>
@@ -217,6 +221,8 @@ button:disabled {
 
 </div>
 
+
+<!-- STEP 3: TEST -->
 
 <div id="testPage" class="card hidden">
 
@@ -241,6 +247,8 @@ button:disabled {
 
 </div>
 
+
+<!-- STEP 4: RESULT -->
 
 <div id="resultPage" class="card result hidden">
 
@@ -268,9 +276,16 @@ button:disabled {
 
 </div>
 
+<!-- Supabase client -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
+/* =========================
+   SUPABASE CONFIG
+   Replace with your own values
+   from Project Settings > API
+========================= */
 
 const SUPABASE_URL = "https://ilealjmhymujcoolptbe.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_eyZTQOA0_mLdxqVH3LUmvw_gsll1hBi";
@@ -280,19 +295,29 @@ const sb = window.supabase.createClient(
   SUPABASE_ANON_KEY
 );
 
+
+/* =========================
+   VARIABLES
+========================= */
+
 let studentName = "";
 let candidateId = null;
 
-let selectedSubject = "";
-let selectedSubjectId = null;
+let selectedSubject = "";     // subject name, e.g. "Mathematics"
+let selectedSubjectId = null; // subject uuid
 
-let subjectsCache = [];
-let questions = [];
+let subjectsCache = [];       // [{id, name}]
+let questions = [];           // loaded from Supabase for chosen subject
 
 let currentQuestion = 0;
 let score = 0;
 let timeLeft = 600;
 let timerInterval;
+
+
+/* =========================
+   STUDENT NAME -> SAVE CANDIDATE
+========================= */
 
 async function continueToSubjects() {
 
@@ -309,6 +334,7 @@ async function continueToSubjects() {
 
   try {
 
+    // Save the candidate to Supabase
     const { data, error } = await sb
       .from("candidates")
       .insert({ full_name: studentName })
@@ -329,7 +355,7 @@ async function continueToSubjects() {
   } catch (err) {
 
     console.error(err);
-    alert("Could not start the test.\n\nDetails: " + (err.message || JSON.stringify(err)));
+    alert("Could not start the test. Please check your connection and try again.");
 
   } finally {
 
@@ -339,6 +365,11 @@ async function continueToSubjects() {
   }
 
 }
+
+
+/* =========================
+   LOAD SUBJECTS FROM SUPABASE
+========================= */
 
 async function loadSubjects() {
 
@@ -378,11 +409,16 @@ async function loadSubjects() {
   } catch (err) {
 
     console.error(err);
-    listEl.innerHTML = '<div class="error-box">Could not load subjects: ' + (err.message || 'unknown error') + '</div>';
+    listEl.innerHTML = '<div class="error-box">Could not load subjects. Please check your connection and reload.</div>';
 
   }
 
 }
+
+
+/* =========================
+   SELECT SUBJECT -> LOAD QUESTIONS
+========================= */
 
 async function selectSubject(subjectId, subjectName) {
 
@@ -414,6 +450,7 @@ async function selectSubject(subjectId, subjectName) {
       return;
     }
 
+    // Map DB rows into the shape the quiz logic expects
     questions = data.map(row => ({
       id: row.id,
       question: row.question,
@@ -435,11 +472,16 @@ async function selectSubject(subjectId, subjectName) {
 
     console.error(err);
     document.getElementById("questionContainer").innerHTML =
-      '<div class="error-box">Could not load questions: ' + (err.message || 'unknown error') + '</div>';
+      '<div class="error-box">Could not load questions. Please check your connection and reload.</div>';
 
   }
 
 }
+
+
+/* =========================
+   SHOW QUESTION
+========================= */
 
 function showQuestion() {
 
@@ -468,6 +510,11 @@ function showQuestion() {
 
 }
 
+
+/* =========================
+   NEXT QUESTION
+========================= */
+
 function nextQuestion() {
 
   const selected = document.querySelector('input[name="answer"]:checked');
@@ -491,10 +538,83 @@ function nextQuestion() {
 
 }
 
+
+/* =========================
+   TIMER
+========================= */
+
 function updateTimer() {
 
   timeLeft--;
 
   let minutes = Math.floor(timeLeft / 60);
   let seconds = timeLeft % 60;
-  seconds = seconds < 10 ? "0
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+
+  document.getElementById("timer").textContent = minutes + ":" + seconds;
+
+  if (timeLeft <= 0) {
+    finishTest();
+  }
+
+}
+
+
+/* =========================
+   FINISH TEST -> SAVE RESULT
+========================= */
+
+async function finishTest() {
+
+  clearInterval(timerInterval);
+
+  document.getElementById("testPage").classList.add("hidden");
+  document.getElementById("resultPage").classList.remove("hidden");
+
+  const percentage = Math.round((score / questions.length) * 100);
+
+  document.getElementById("studentResult").textContent = "Student: " + studentName;
+  document.getElementById("subjectResult").textContent = "Subject: " + selectedSubject;
+  document.getElementById("score").textContent = score + " / " + questions.length;
+  document.getElementById("percentage").textContent = "Percentage: " + percentage + "%";
+
+  if (percentage >= 70) {
+    document.getElementById("message").textContent = "Excellent performance! Congratulations.";
+  } else if (percentage >= 50) {
+    document.getElementById("message").textContent = "Good effort. Keep studying and improving.";
+  } else {
+    document.getElementById("message").textContent = "Keep practicing. You can do better next time.";
+  }
+
+  const saveStatusEl = document.getElementById("saveStatus");
+  saveStatusEl.textContent = "Saving your result...";
+
+  try {
+
+    const { error } = await sb.from("results").insert({
+      candidate_id: candidateId,
+      subject_id: selectedSubjectId,
+      student_name: studentName,
+      subject_name: selectedSubject,
+      score: score,
+      total_questions: questions.length,
+      percentage: percentage
+    });
+
+    if (error) throw error;
+
+    saveStatusEl.textContent = "Result saved successfully.";
+
+  } catch (err) {
+
+    console.error(err);
+    saveStatusEl.textContent = "Note: result could not be saved (no connection).";
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
