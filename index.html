@@ -3,618 +3,670 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Excellentia Digital Academy - CBT</title>
+
+<title>Excellentia Digital Academy</title>
+
+<meta name="description" content="Excellentia Digital Academy - Learn. Grow. Succeed.">
 
 <style>
-* {
-  box-sizing: border-box;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f2f5f9;
-  color: #222;
+body{
+    font-family:Arial, sans-serif;
+    background:#f5f7fa;
+    color:#222;
+    line-height:1.6;
 }
 
-.header {
-  background: #075e54;
-  color: white;
-  text-align: center;
-  padding: 28px 15px;
-  border-radius: 0 0 25px 25px;
+a{
+    text-decoration:none;
+    color:inherit;
 }
 
-.header h1 {
-  margin: 0;
-  font-size: 28px;
+.header{
+    background:#075e54;
+    color:white;
+    padding:18px 20px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
 }
 
-.header p {
-  font-size: 18px;
-  margin: 10px 0 0;
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.container {
-  max-width: 700px;
-  margin: auto;
-  padding: 20px;
+.logo{
+    font-size:21px;
+    font-weight:bold;
 }
 
-.card {
-  background: white;
-  margin-top: 20px;
-  padding: 28px;
-  border-radius: 18px;
-  box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+.menu-btn{
+    background:transparent;
+    border:0;
+    color:white;
+    font-size:28px;
+    width:auto;
+    padding:0;
+    margin:0;
 }
 
-.hidden {
-  display: none;
+.nav{
+    display:none;
+    background:#064c44;
+    margin-top:15px;
+    border-radius:10px;
+    overflow:hidden;
 }
 
-h2 {
-  color: #075e54;
+.nav a{
+    display:block;
+    padding:13px 15px;
+    color:white;
+    border-bottom:1px solid rgba(255,255,255,.1);
 }
 
-input,
-select {
-  width: 100%;
-  padding: 15px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 9px;
-  font-size: 17px;
+.nav.show{
+    display:block;
 }
 
-button {
-  width: 100%;
-  padding: 15px;
-  margin-top: 12px;
-  border: none;
-  border-radius: 9px;
-  background: #075e54;
-  color: white;
-  font-size: 17px;
-  cursor: pointer;
+.hero{
+    background:linear-gradient(135deg,#075e54,#0a8f7f);
+    color:white;
+    text-align:center;
+    padding:60px 20px;
 }
 
-button:hover {
-  background: #064c44;
+.hero h1{
+    font-size:34px;
+    margin-bottom:12px;
 }
 
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.hero .tagline{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:12px;
 }
 
-.timer {
-  background: #fff3cd;
-  color: #856404;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 21px;
-  font-weight: bold;
-  margin-bottom: 22px;
+.hero p{
+    max-width:650px;
+    margin:0 auto 25px;
+    font-size:17px;
 }
 
-.subject-box {
-  border: 2px solid #e0e0e0;
-  padding: 18px;
-  margin: 12px 0;
-  border-radius: 12px;
-  cursor: pointer;
-  background: #fafafa;
+.btn{
+    display:inline-block;
+    background:white;
+    color:#075e54;
+    padding:14px 24px;
+    border-radius:10px;
+    font-weight:bold;
+    border:none;
+    cursor:pointer;
+    font-size:16px;
 }
 
-.subject-box:hover {
-  border-color: #075e54;
-  background: #e8f5f3;
+.btn-primary{
+    background:#075e54;
+    color:white;
 }
 
-.question-number {
-  color: #075e54;
-  font-weight: bold;
-  font-size: 18px;
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:25px 18px;
 }
 
-.option {
-  display: block;
-  background: #f5f5f5;
-  padding: 16px;
-  margin: 11px 0;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 17px;
+.section-title{
+    text-align:center;
+    color:#075e54;
+    font-size:27px;
+    margin-bottom:8px;
 }
 
-.option:hover {
-  background: #e8f5f3;
+.section-text{
+    text-align:center;
+    margin-bottom:25px;
+    color:#666;
 }
 
-.option input {
-  width: auto;
-  margin-right: 10px;
+.grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:18px;
 }
 
-.result {
-  text-align: center;
+.card{
+    background:white;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
 }
 
-.score {
-  font-size: 42px;
-  font-weight: bold;
-  color: #075e54;
+.card h3{
+    color:#075e54;
+    margin-bottom:8px;
 }
 
-.info {
-  background: #e8f5f3;
-  padding: 15px;
-  border-radius: 10px;
-  margin: 15px 0;
+.class-card{
+    text-align:center;
+    border-top:5px solid #075e54;
 }
 
-.loading {
-  text-align: center;
-  padding: 30px;
-  color: #075e54;
+.class-icon{
+    font-size:45px;
+    margin-bottom:10px;
 }
 
-.error-box {
-  background: #fdecea;
-  color: #b71c1c;
-  padding: 15px;
-  border-radius: 10px;
-  margin: 15px 0;
+.subject-card{
+    cursor:pointer;
+    transition:.2s;
+}
+
+.subject-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 7px 20px rgba(0,0,0,.12);
+}
+
+.subject-icon{
+    font-size:38px;
+    margin-bottom:8px;
+}
+
+.features{
+    background:#e8f5f3;
+}
+
+.feature{
+    text-align:center;
+}
+
+.feature-icon{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.about{
+    background:white;
+}
+
+.cta{
+    background:#075e54;
+    color:white;
+    text-align:center;
+    border-radius:20px;
+    padding:35px 20px;
+}
+
+.cta h2{
+    margin-bottom:10px;
+}
+
+.cta p{
+    margin-bottom:20px;
+}
+
+.footer{
+    background:#073f3a;
+    color:white;
+    text-align:center;
+    padding:30px 18px;
+    margin-top:30px;
+}
+
+.footer p{
+    margin:5px 0;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    z-index:2000;
+    padding:20px;
+}
+
+.modal-content{
+    background:white;
+    max-width:500px;
+    margin:60px auto;
+    border-radius:18px;
+    padding:25px;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:18px;
+    top:12px;
+    font-size:28px;
+    cursor:pointer;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:9px;
+    font-size:16px;
+}
+
+.full-btn{
+    width:100%;
+}
+
+@media(min-width:700px){
+
+    .menu-btn{
+        display:none;
+    }
+
+    .nav{
+        display:flex;
+        background:transparent;
+        margin:0;
+        gap:20px;
+    }
+
+    .nav a{
+        border:0;
+        padding:5px;
+    }
+
+    .hero{
+        padding:90px 20px;
+    }
+
+    .hero h1{
+        font-size:48px;
+    }
+
+    .grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .features .grid{
+        grid-template-columns:repeat(3,1fr);
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-  <h1>Excellentia Digital Academy</h1>
-  <p>Computer Based Test (CBT)</p>
-</div>
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="logo">
+            Excellentia Digital Academy
+        </div>
+
+        <button class="menu-btn" onclick="toggleMenu()">
+            ☰
+        </button>
+
+        <nav class="nav" id="nav">
+            <a href="#home">Home</a>
+            <a href="#classes">Classes</a>
+            <a href="#subjects">Subjects</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a href="#" onclick="openLogin()">Student Login</a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <h1>Excellentia Digital Academy</h1>
+
+    <div class="tagline">
+        Learn. Grow. Succeed.
+    </div>
+
+    <p>
+        A modern online learning platform designed to help
+        Nigerian secondary-school students learn effectively,
+        develop their skills and achieve academic success.
+    </p>
+
+    <button class="btn" onclick="scrollToClasses()">
+        Start Learning
+    </button>
+
+</section>
+
+
+<!-- CLASSES -->
+
+<section id="classes">
 
 <div class="container">
 
-<!-- STEP 1: STUDENT NAME -->
-
-<div id="startPage" class="card">
-
-  <h2>Welcome to the CBT</h2>
-
-  <p>Please enter your full name to continue.</p>
-
-  <input
-    type="text"
-    id="studentName"
-    placeholder="Enter your full name"
-  >
-
-  <button onclick="continueToSubjects()" id="startButton">
-    Continue
-  </button>
-
-</div>
-
-
-<!-- STEP 2: SUBJECT SELECTION -->
-
-<div id="subjectPage" class="card hidden">
-
-  <h2>Select Your Subject</h2>
-
-  <p>
-    Welcome, <strong id="displayName"></strong>.
-  </p>
-
-  <div class="info">
-    Select the subject you want to write.
-  </div>
-
-  <div id="subjectList">
-    <div class="loading">Loading subjects...</div>
-  </div>
-
-</div>
-
-
-<!-- STEP 3: TEST -->
-
-<div id="testPage" class="card hidden">
-
-  <div class="info">
-    <strong>Student:</strong>
-    <span id="testStudent"></span>
-    <br>
-    <strong>Subject:</strong>
-    <span id="testSubject"></span>
-  </div>
-
-  <div class="timer">
-    Time Remaining:
-    <span id="timer">50:00</span>
-  </div>
-
-  <div id="questionContainer"></div>
-
-  <button onclick="nextQuestion()" id="nextButton">
-    Next Question
-  </button>
-
-</div>
-
-
-<!-- STEP 4: RESULT -->
-
-<div id="resultPage" class="card result hidden">
-
-  <h2>Test Completed!</h2>
-
-  <p id="studentResult"></p>
-
-  <p id="subjectResult"></p>
-
-  <p>Your Score</p>
-
-  <div class="score" id="score"></div>
-
-  <p id="percentage"></p>
-
-  <p id="message"></p>
-
-  <p id="saveStatus" style="font-size: 14px; color: #666;"></p>
-
-  <button onclick="location.reload()">
-    Take Another Test
-  </button>
-
-</div>
-
-</div>
-
-<!-- Supabase client -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-
-/* =========================
-   SUPABASE CONFIG
-   Replace with your own values
-   from Project Settings > API
-========================= */
-
-const SUPABASE_URL = "https://ilealjmhymujcoolptbe.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_eyZTQOA0_mLdxqVH3LUmvw_gsll1hBi";
-
-const sb = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
-
-
-/* =========================
-   VARIABLES
-========================= */
-
-let studentName = "";
-let candidateId = null;
-
-let selectedSubject = "";     // subject name, e.g. "Mathematics"
-let selectedSubjectId = null; // subject uuid
-
-let subjectsCache = [];       // [{id, name}]
-let questions = [];           // loaded from Supabase for chosen subject
-
-let currentQuestion = 0;
-let score = 0;
-let timeLeft = 3000;
-let timerInterval;
-
-
-/* =========================
-   STUDENT NAME -> SAVE CANDIDATE
-========================= */
-
-async function continueToSubjects() {
-
-  studentName = document.getElementById("studentName").value.trim();
-
-  if (studentName === "") {
-    alert("Please enter your full name.");
-    return;
-  }
-
-  const startButton = document.getElementById("startButton");
-  startButton.disabled = true;
-  startButton.textContent = "Please wait...";
-
-  try {
-
-    // Save the candidate to Supabase
-    const { data, error } = await sb
-      .from("candidates")
-      .insert({ full_name: studentName })
-      .select()
-      .single();
-
-    if (error) throw error;
-
-    candidateId = data.id;
-
-    document.getElementById("displayName").textContent = studentName;
-
-    document.getElementById("startPage").classList.add("hidden");
-    document.getElementById("subjectPage").classList.remove("hidden");
-
-    loadSubjects();
-
-  } catch (err) {
-
-    console.error(err);
-    alert("Could not start the test.\n\nDetails: " + (err.message || JSON.stringify(err)));
-
-  } finally {
-
-    startButton.disabled = false;
-    startButton.textContent = "Continue";
-
-  }
-
-}
-
-
-/* =========================
-   LOAD SUBJECTS FROM SUPABASE
-========================= */
-
-async function loadSubjects() {
-
-  const listEl = document.getElementById("subjectList");
-
-  try {
-
-    const { data, error } = await sb
-      .from("subjects")
-      .select("id, name")
-      .order("name");
-
-    if (error) throw error;
-
-    if (!data || data.length === 0) {
-      listEl.innerHTML = '<div class="error-box">No subjects found. Please contact the administrator.</div>';
-      return;
-    }
-
-    subjectsCache = data;
-
-    const icons = {
-      "Mathematics": "📐",
-      "English": "📖",
-      "Biology": "🧬",
-      "Chemistry": "⚗️",
-      "Physics": "⚡",
-      "Computer Studies": "💻"
-    };
-
-    listEl.innerHTML = data.map(subject => `
-      <div class="subject-box" onclick="selectSubject('${subject.id}', '${subject.name.replace(/'/g, "\\'")}')">
-        ${icons[subject.name] || "📘"} <strong>${subject.name}</strong>
-      </div>
-    `).join("");
-
-  } catch (err) {
-
-    console.error(err);
-    listEl.innerHTML = '<div class="error-box">Could not load subjects. Please check your connection and reload.</div>';
-
-  }
-
-}
-
-
-/* =========================
-   SELECT SUBJECT -> LOAD QUESTIONS
-========================= */
-
-async function selectSubject(subjectId, subjectName) {
-
-  selectedSubjectId = subjectId;
-  selectedSubject = subjectName;
-
-  document.getElementById("subjectPage").classList.add("hidden");
-  document.getElementById("testPage").classList.remove("hidden");
-
-  document.getElementById("testStudent").textContent = studentName;
-  document.getElementById("testSubject").textContent = selectedSubject;
-
-  document.getElementById("questionContainer").innerHTML =
-    '<div class="loading">Loading questions...</div>';
-  document.getElementById("nextButton").disabled = true;
-
-  try {
-
-    const { data, error } = await sb
-      .from("questions")
-      .select("*")
-      .eq("subject_id", subjectId);
-
-    if (error) throw error;
-
-    if (!data || data.length === 0) {
-      document.getElementById("questionContainer").innerHTML =
-        '<div class="error-box">No questions found for this subject.</div>';
-      return;
-    }
-
-    // Map DB rows into the shape the quiz logic expects
-    questions = data.map(row => ({
-      id: row.id,
-      question: row.question,
-      options: [row.option_a, row.option_b, row.option_c, row.option_d],
-      answer: row.correct_index
-    }));
-
-    currentQuestion = 0;
-    score = 0;
-    timeLeft = 3000;
-
-    document.getElementById("nextButton").disabled = false;
-
-    showQuestion();
-
-    timerInterval = setInterval(updateTimer, 1000);
-
-  } catch (err) {
-
-    console.error(err);
-    document.getElementById("questionContainer").innerHTML =
-      '<div class="error-box">Could not load questions. Please check your connection and reload.</div>';
-
-  }
-
-}
-
-
-/* =========================
-   SHOW QUESTION
-========================= */
-
-function showQuestion() {
-
-  const q = questions[currentQuestion];
-
-  let html = `
-    <p class="question-number">
-      Question ${currentQuestion + 1} of ${questions.length}
+    <h2 class="section-title">
+        Choose Your Class
+    </h2>
+
+    <p class="section-text">
+        Select your class to explore available learning resources.
     </p>
-    <h3>${q.question}</h3>
-  `;
 
-  q.options.forEach((option, index) => {
-    html += `
-      <label class="option">
-        <input type="radio" name="answer" value="${index}">
-        ${option}
-      </label>
-    `;
-  });
+    <div class="grid">
 
-  document.getElementById("questionContainer").innerHTML = html;
+        <div class="card class-card">
+            <div class="class-icon">🎓</div>
+            <h3>JSS1</h3>
+            <p>
+                Build strong foundations and develop essential
+                academic skills.
+            </p>
+            <button class="btn btn-primary"
+                    onclick="selectClass('JSS1')">
+                Explore JSS1
+            </button>
+        </div>
 
-  document.getElementById("nextButton").textContent =
-    currentQuestion === questions.length - 1 ? "Submit Test" : "Next Question";
+        <div class="card class-card">
+            <div class="class-icon">📚</div>
+            <h3>JSS2</h3>
+            <p>
+                Improve your knowledge and prepare for advanced
+                secondary-school learning.
+            </p>
+            <button class="btn btn-primary"
+                    onclick="selectClass('JSS2')">
+                Explore JSS2
+            </button>
+        </div>
 
-}
+        <div class="card class-card">
+            <div class="class-icon">🏆</div>
+            <h3>JSS3</h3>
+            <p>
+                Strengthen your understanding and prepare for
+                important academic milestones.
+            </p>
+            <button class="btn btn-primary"
+                    onclick="selectClass('JSS3')">
+                Explore JSS3
+            </button>
+        </div>
 
+    </div>
 
-/* =========================
-   NEXT QUESTION
-========================= */
+</div>
 
-function nextQuestion() {
-
-  const selected = document.querySelector('input[name="answer"]:checked');
-
-  if (!selected) {
-    alert("Please select an answer.");
-    return;
-  }
-
-  if (parseInt(selected.value) === questions[currentQuestion].answer) {
-    score++;
-  }
-
-  currentQuestion++;
-
-  if (currentQuestion < questions.length) {
-    showQuestion();
-  } else {
-    finishTest();
-  }
-
-}
-
-
-/* =========================
-   TIMER
-========================= */
-
-function updateTimer() {
-
-  timeLeft--;
-
-  let minutes = Math.floor(timeLeft / 60);
-  let seconds = timeLeft % 60;
-  seconds = seconds < 10 ? "0" + seconds : seconds;
-
-  document.getElementById("timer").textContent = minutes + ":" + seconds;
-
-  if (timeLeft <= 0) {
-    finishTest();
-  }
-
-}
+</section>
 
 
-/* =========================
-   FINISH TEST -> SAVE RESULT
-========================= */
+<!-- SUBJECTS -->
 
-async function finishTest() {
+<section id="subjects">
 
-  clearInterval(timerInterval);
+<div class="container">
 
-  document.getElementById("testPage").classList.add("hidden");
-  document.getElementById("resultPage").classList.remove("hidden");
+    <h2 class="section-title">
+        Popular Subjects
+    </h2>
 
-  const percentage = Math.round((score / questions.length) * 100);
+    <p class="section-text">
+        Learn important subjects through organized digital lessons.
+    </p>
 
-  document.getElementById("studentResult").textContent = "Student: " + studentName;
-  document.getElementById("subjectResult").textContent = "Subject: " + selectedSubject;
-  document.getElementById("score").textContent = score + " / " + questions.length;
-  document.getElementById("percentage").textContent = "Percentage: " + percentage + "%";
+    <div class="grid">
 
-  if (percentage >= 70) {
-    document.getElementById("message").textContent = "Excellent performance! Congratulations.";
-  } else if (percentage >= 50) {
-    document.getElementById("message").textContent = "Good effort. Keep studying and improving.";
-  } else {
-    document.getElementById("message").textContent = "Keep practicing. You can do better next time.";
-  }
+        <div class="card subject-card"
+             onclick="openSubject('Mathematics')">
+            <div class="subject-icon">📐</div>
+            <h3>Mathematics</h3>
+            <p>
+                Numbers, algebra, geometry and problem solving.
+            </p>
+        </div>
 
-  const saveStatusEl = document.getElementById("saveStatus");
-  saveStatusEl.textContent = "Saving your result...";
+        <div class="card subject-card"
+             onclick="openSubject('English Language')">
+            <div class="subject-icon">📖</div>
+            <h3>English Language</h3>
+            <p>
+                Grammar, comprehension, vocabulary and writing.
+            </p>
+        </div>
 
-  try {
+        <div class="card subject-card"
+             onclick="openSubject('Basic Science')">
+            <div class="subject-icon">🔬</div>
+            <h3>Basic Science</h3>
+            <p>
+                Explore scientific concepts and everyday life.
+            </p>
+        </div>
 
-    const { error } = await sb.from("results").insert({
-      candidate_id: candidateId,
-      subject_id: selectedSubjectId,
-      student_name: studentName,
-      subject_name: selectedSubject,
-      score: score,
-      total_questions: questions.length,
-      percentage: percentage
-    });
+        <div class="card subject-card"
+             onclick="openSubject('Basic Technology')">
+            <div class="subject-icon">⚙️</div>
+            <h3>Basic Technology</h3>
+            <p>
+                Learn technology, tools, materials and design.
+            </p>
+        </div>
 
-    if (error) throw error;
+        <div class="card subject-card"
+             onclick="openSubject('Computer Studies')">
+            <div class="subject-icon">💻</div>
+            <h3>Computer Studies</h3>
+            <p>
+                Discover computers, digital skills and technology.
+            </p>
+        </div>
 
-    saveStatusEl.textContent = "Result saved successfully.";
+        <div class="card subject-card"
+             onclick="openSubject('Social Studies')">
+            <div class="subject-icon">🌍</div>
+            <h3>Social Studies</h3>
+            <p>
+                Understand society, culture and responsible living.
+            </p>
+        </div>
 
-  } catch (err) {
+    </div>
 
-    console.error(err);
-    saveStatusEl.textContent = "Note: result could not be saved (no connection).";
+</div>
 
-  }
+</section>
 
-}
 
-</script>
+<!-- FEATURES -->
 
-</body>
-</html>
+<section class="features">
+
+<div class="container">
+
+    <h2 class="section-title">
+        Why Learn With Excellentia?
+    </h2>
+
+    <div class="grid">
+
+        <div class="card feature">
+
+            <div class="feature-icon">📱</div>
+
+            <h3>Learn Anywhere</h3>
+
+            <p>
+                Access your learning resources using your
+                smartphone, tablet or computer.
+            </p>
+
+        </div>
+
+
+        <div class="card feature">
+
+            <div class="feature-icon">📚</div>
+
+            <h3>Quality Lessons</h3>
+
+            <p>
+                Study organized lessons designed to make
+                difficult topics easier to understand.
+            </p>
+
+        </div>
+
+
+        <div class="card feature">
+
+            <div class="feature-icon">📊</div>
+
+            <h3>Track Your Progress</h3>
+
+            <p>
+                Monitor your learning activities and improve
+                your academic performance.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="about" id="about">
+
+<div class="container">
+
+    <h2 class="section-title">
+        About Excellentia Digital Academy
+    </h2>
+
+    <div class="card">
+
+        <p>
+            Excellentia Digital Academy is an online learning
+            platform created to provide secondary-school students
+            with accessible and engaging educational resources.
+        </p>
+
+        <br>
+
+        <p>
+            Our goal is to help students learn at their own pace,
+            understand their subjects better and develop the
+            confidence they need to succeed.
+        </p>
+
+        <br>
+
+        <p>
+            <strong>Learn. Grow. Succeed.</strong>
+        </p>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- CALL TO ACTION -->
+
+<section id="contact">
+
+<div class="container">
+
+    <div class="cta">
+
+        <h2>
+            Ready to Start Learning?
+        </h2>
+
+        <p>
+            Join Excellentia Digital Academy and begin
+            your learning journey today.
+        </p>
+
+        <button class="btn" onclick="openLogin()">
+            Student Login
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <h3>Excellentia Digital Academy</h3>
+
+    <p>Learn. Grow. Succeed.</p>
+
+    <p>
+        © <span id="year"></span>
+        Excellentia Digital Academy.
+        All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- LOGIN MODAL -->
+
+<div class="modal" id="loginModal">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeLogin()">
+            &times;
+        </span>
+
+        <h2 style="color:#075e54;">
+            Student Login
+        </h2>
+
+        <p>
+            Enter your details to access your learning area.
+        </p>
+
+        <input
+            type="text"
+            id="loginName"
+            placeholder="Enter your name"
+        >
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Enter your email"
+        >
+
+        <button class="btn
