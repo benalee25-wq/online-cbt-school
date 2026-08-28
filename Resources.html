@@ -1,1 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Resources - Excellentia Digital Academy</title>
+
+<meta name="description" content="Excellentia Digital Academy - Learning Resources">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f5f7fa;
+    color:#222;
+    line-height:1.6;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+.header{
+    background:#075e54;
+    color:white;
+    padding:18px 20px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:21px;
+    font-weight:bold;
+}
+
+.menu-btn{
+    background:transparent;
+    border:0;
+    color:white;
+    font-size:28px;
+    width:auto;
+    padding:0;
+    margin:0;
+}
+
+.nav{
+    display:none;
+    background:#064c44;
+    margin-top:15px;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.nav a{
+    display:block;
+    padding:13px 15px;
+    color:white;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.nav.show{
+    display:block;
+}
+
+.page-hero{
+    background:linear-gradient(135deg,#075e54,#0a8f7f);
+    color:white;
+    text-align:center;
+    padding:40px 20px;
+}
+
+.page-hero h1{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.page-hero p{
+    font-size:15px;
+    opacity:.95;
+}
+
+.tab-switch{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.tab-switch button{
+    background:rgba(255,255,255,.15);
+    color:white;
+    border:2px solid white;
+    padding:10px 18px;
+    border-radius:30px;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.tab-switch button.active{
+    background:white;
+    color:#075e54;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:25px 18px;
+}
+
+.section-title{
+    text-align:center;
+    color:#075e54;
+    font-size:24px;
+    margin-bottom:8px;
+}
+
+.section-text{
+    text-align:center;
+    margin-bottom:25px;
+    color:#666;
+}
+
+.note-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.note-item{
+    background:white;
+    border-radius:14px;
+    padding:18px 20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+    cursor:pointer;
+    transition:.2s;
+}
+
+.note-item:hover{
+    transform:translateY(-2px);
+    box-shadow:0 7px 20px rgba(0,0,0,.12);
+}
+
+.note-item h3{
+    color:#075e54;
+    font-size:16px;
+    margin-bottom:3px;
+}
+
+.note-item p{
+    color:#666;
+    font-size:14px;
+}
+
+.note-tag{
+    display:inline-block;
+    background:#e8f5f3;
+    color:#075e54;
+    font-size:12px;
+    font-weight:bold;
+    padding:3px 10px;
+    border-radius:20px;
+    margin-bottom:8px;
+}
+
+.note-card{
+    background:white;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.note-card h2{
+    color:#075e54;
+    font-size:20px;
+    margin-bottom:14px;
+}
+
+.note-card p{
+    color:#333;
+    white-space:pre-line;
+}
+
+.back-link{
+    display:inline-block;
+    margin-bottom:15px;
+    color:#075e54;
+    font-weight:bold;
+}
+
+.empty-state{
+    text-align:center;
+    color:#666;
+    background:white;
+    border-radius:16px;
+    padding:40px 20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.footer{
+    background:#073f3a;
+    color:white;
+    text-align:center;
+    padding:30px 18px;
+    margin-top:30px;
+}
+
+.footer p{
+    margin:5px 0;
+}
+
+@media(min-width:700px){
+
+    .menu-btn{
+        display:none;
+    }
+
+    .nav{
+        display:flex;
+        background:transparent;
+        margin:0;
+        gap:20px;
+    }
+
+    .nav a{
+        border:0;
+        padding:5px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="logo">
+            Excellentia Digital Academy
+        </div>
+
+        <button class="menu-btn" onclick="toggleMenu()">
+            ☰
+        </button>
+
+        <nav class="nav" id="nav">
+            <a href="index.html">Home</a>
+            <a href="classes.html">Classes</a>
+            <a href="index.html#subjects">Subjects</a>
+            <a href="resources.html">Resources</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- PAGE HERO -->
+
+<section class="page-hero">
+
+    <h1>Learning Resources</h1>
+    <p>Extra materials to support your lessons.</p>
+
+    <div class="tab-switch">
+        <button id="tabNotes" onclick="showTab('notes')">Notes</button>
+        <button id="tabVideos" onclick="showTab('videos')">Videos</button>
+        <button id="tabRevision" onclick="showTab('revision')">Revision</button>
+    </div>
+
+</section>
+
+
+<!-- NOTES LIST VIEW -->
+
+<section id="notesListView">
+
+<div class="container">
+
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+
+    <h2 class="section-title">Study Notes</h2>
+    <p class="section-text">Tap a note to read it.</p>
+
+    <div class="note-list" id="noteList">
+        <!-- note items inserted by JavaScript -->
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- NOTE DETAIL VIEW -->
+
+<section id="noteDetailView" style="display:none;">
+
+<div class="container">
+
+    <a href="#" class="back-link" onclick="showTab('notes'); return false;">&larr; Back to Notes</a>
+
+    <div class="note-card">
+        <h2 id="noteTitle">Note Title</h2>
+        <p id="noteBody"></p>
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- VIDEOS VIEW -->
+
+<section id="videosView" style="display:none;">
+
+<div class="container">
+
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+
+    <h2 class="section-title">Video Lessons</h2>
+
+    <div class="empty-state">
+        Video lessons are coming soon. We are recording and
+        organizing videos for each subject.
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- REVISION VIEW -->
+
+<section id="revisionView" style="display:none;">
+
+<div class="container">
+
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+
+    <h2 class="section-title">Revision Materials</h2>
+
+    <div class="empty-state">
+        Revision materials are coming soon. We are preparing
+        practice reviews for each subject.
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+    <h3>Excellentia Digital Academy</h3>
+    <p>Learn. Grow. Succeed.</p>
+    <p>© <span id="year"></span> Excellentia Digital Academy. All Rights Reserved.</p>
+</footer>
+
+
+<script>
+
+// ---- Notes content ----
+// Short, quick-reference notes - separate from the full lessons.
+// Add more by copying a block below.
+
+var notesData = [
+    {
+        subject:'Mathematics',
+        title:'Whole Numbers - Quick Notes',
+        body:'Whole numbers: 0, 1, 2, 3, 4...\nNo fractions or decimals.\nCan be ordered ascending (small to big) or descending (big to small).\n\nTip: Line up numbers by their number of digits first - more digits usually means a bigger number.'
+    },
+    {
+        subject:'Mathematics',
+        title:'Fractions - Quick Notes',
+        body:'A fraction = part of a whole.\nTop number = numerator. Bottom number = denominator.\n\nSame denominator? Just add or subtract the top numbers.\nExample: 1/4 + 2/4 = 3/4.'
+    },
+    {
+        subject:'English Language',
+        title:'Parts of Speech - Quick Notes',
+        body:'Noun = person, place or thing.\nVerb = action or state of being.\nAdjective = describes a noun.\n\nTip: Ask "what is doing something?" to find the noun, and "what is it doing?" to find the verb.'
+    },
+    {
+        subject:'Basic Science',
+        title:'Living vs Non-Living - Quick Notes',
+        body:'Living things: grow, reproduce, respond, need food and air.\nNon-living things: do none of these.\n\nTip: If it can grow bigger or make more of itself, it is alive.'
+    }
+];
+
+
+// ---- State ----
+
+var currentTab = 'notes';
+
+
+// ---- Mobile menu ----
+
+function toggleMenu(){
+    document.getElementById('nav').classList.toggle('show');
+}
+
+
+// ---- Tabs ----
+
+function showTab(tab){
+
+    currentTab = tab;
+
+    ['Notes','Videos','Revision'].forEach(function(t){
+        document.getElementById('tab' + t).classList.remove('active');
+    });
+    document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+
+    document.getElementById('notesListView').style.display = 'none';
+    document.getElementById('noteDetailView').style.display = 'none';
+    document.getElementById('videosView').style.display = 'none';
+    document.getElementById('revisionView').style.display = 'none';
+
+    if(tab === 'notes'){
+        document.getElementById('notesListView').style.display = 'block';
+        renderNoteList();
+    } else if(tab === 'videos'){
+        document.getElementById('videosView').style.display = 'block';
+    } else if(tab === 'revision'){
+        document.getElementById('revisionView').style.display = 'block';
+    }
+}
+
+
+// ---- Build the note list ----
+
+function renderNoteList(){
+
+    var list = document.getElementById('noteList');
+    list.innerHTML = '';
+
+    notesData.forEach(function(note, index){
+        var item = document.createElement('div');
+        item.className = 'note-item';
+        item.onclick = function(){ openNote(index); };
+
+        item.innerHTML =
+            '<div class="note-tag">' + note.subject + '</div>' +
+            '<h3>' + note.title + '</h3>';
+
+        list.appendChild(item);
+    });
+}
+
+
+// ---- Open a note ----
+
+function openNote(index){
+
+    var note = notesData[index];
+    if(!note){ return; }
+
+    document.getElementById('noteTitle').innerText = note.title;
+    document.getElementById('noteBody').innerText = note.body;
+
+    document.getElementById('notesListView').style.display = 'none';
+    document.getElementById('noteDetailView').style.display = 'block';
+
+    window.scrollTo(0, 0);
+}
+
+
+// ---- Page setup ----
+
+function getStartingTab(){
+    var params = new URLSearchParams(window.location.search);
+    var fromUrl = params.get('tab');
+    var validTabs = ['notes', 'videos', 'revision'];
+
+    if(fromUrl && validTabs.indexOf(fromUrl) !== -1){
+        return fromUrl;
+    }
+
+    return 'notes';
+}
+
+showTab(getStartingTab());
+
+
+// ---- Footer year ----
+
+document.getElementById('year').innerText = new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
