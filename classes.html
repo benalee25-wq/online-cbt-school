@@ -1,1 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Class Dashboard - Excellentia Digital Academy</title>
+
+<meta name="description" content="Excellentia Digital Academy - Class Dashboard">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f5f7fa;
+    color:#222;
+    line-height:1.6;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+.header{
+    background:#075e54;
+    color:white;
+    padding:18px 20px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:21px;
+    font-weight:bold;
+}
+
+.menu-btn{
+    background:transparent;
+    border:0;
+    color:white;
+    font-size:28px;
+    width:auto;
+    padding:0;
+    margin:0;
+}
+
+.nav{
+    display:none;
+    background:#064c44;
+    margin-top:15px;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.nav a{
+    display:block;
+    padding:13px 15px;
+    color:white;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.nav.show{
+    display:block;
+}
+
+.page-hero{
+    background:linear-gradient(135deg,#075e54,#0a8f7f);
+    color:white;
+    text-align:center;
+    padding:40px 20px;
+}
+
+.page-hero h1{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.page-hero p{
+    font-size:16px;
+    opacity:.95;
+}
+
+.class-switch{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.class-switch button{
+    background:rgba(255,255,255,.15);
+    color:white;
+    border:2px solid white;
+    padding:10px 18px;
+    border-radius:30px;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.class-switch button.active{
+    background:white;
+    color:#075e54;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:25px 18px;
+}
+
+.section-title{
+    text-align:center;
+    color:#075e54;
+    font-size:24px;
+    margin-bottom:8px;
+}
+
+.section-text{
+    text-align:center;
+    margin-bottom:25px;
+    color:#666;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:18px;
+}
+
+.card{
+    background:white;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.card h3{
+    color:#075e54;
+    margin-bottom:8px;
+}
+
+.subject-card{
+    cursor:pointer;
+    transition:.2s;
+}
+
+.subject-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 7px 20px rgba(0,0,0,.12);
+}
+
+.subject-icon{
+    font-size:38px;
+    margin-bottom:8px;
+}
+
+.back-link{
+    display:inline-block;
+    margin-bottom:15px;
+    color:#075e54;
+    font-weight:bold;
+}
+
+.footer{
+    background:#073f3a;
+    color:white;
+    text-align:center;
+    padding:30px 18px;
+    margin-top:30px;
+}
+
+.footer p{
+    margin:5px 0;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    z-index:2000;
+    padding:20px;
+}
+
+.modal-content{
+    background:white;
+    max-width:500px;
+    margin:60px auto;
+    border-radius:18px;
+    padding:25px;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:18px;
+    top:12px;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.btn{
+    display:inline-block;
+    background:white;
+    color:#075e54;
+    padding:14px 24px;
+    border-radius:10px;
+    font-weight:bold;
+    border:none;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.btn-primary{
+    background:#075e54;
+    color:white;
+}
+
+.full-btn{
+    width:100%;
+}
+
+@media(min-width:700px){
+
+    .menu-btn{
+        display:none;
+    }
+
+    .nav{
+        display:flex;
+        background:transparent;
+        margin:0;
+        gap:20px;
+    }
+
+    .nav a{
+        border:0;
+        padding:5px;
+    }
+
+    .grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="logo">
+            Excellentia Digital Academy
+        </div>
+
+        <button class="menu-btn" onclick="toggleMenu()">
+            ☰
+        </button>
+
+        <nav class="nav" id="nav">
+            <a href="index.html">Home</a>
+            <a href="classes.html">Classes</a>
+            <a href="index.html#subjects">Subjects</a>
+            <a href="index.html#resources">Resources</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- PAGE HERO -->
+
+<section class="page-hero">
+
+    <h1 id="classHeading">Class Dashboard</h1>
+    <p id="classSubheading">Select a class to see its subjects.</p>
+
+    <div class="class-switch">
+        <button id="btnJSS1" onclick="showClass('JSS1')">JSS1</button>
+        <button id="btnJSS2" onclick="showClass('JSS2')">JSS2</button>
+        <button id="btnJSS3" onclick="showClass('JSS3')">JSS3</button>
+    </div>
+
+</section>
+
+
+<!-- SUBJECTS FOR SELECTED CLASS -->
+
+<section>
+
+<div class="container">
+
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+
+    <h2 class="section-title">
+        Subjects
+    </h2>
+
+    <p class="section-text">
+        Tap a subject to open its lessons.
+    </p>
+
+    <div class="grid" id="subjectGrid">
+        <!-- subject cards are inserted here by JavaScript -->
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <h3>Excellentia Digital Academy</h3>
+
+    <p>Learn. Grow. Succeed.</p>
+
+    <p>
+        © <span id="year"></span>
+        Excellentia Digital Academy.
+        All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- INFO MODAL -->
+
+<div class="modal" id="infoModal">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeInfo()">
+            &times;
+        </span>
+
+        <h2 style="color:#075e54;" id="infoTitle">
+            Coming Soon
+        </h2>
+
+        <p id="infoText">
+            This section is being built.
+        </p>
+
+        <button class="btn btn-primary full-btn" onclick="closeInfo()">
+            Okay
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+// ---- Subjects per class ----
+// Same subject list for every class for now.
+// Easy to customize per class later (e.g. different subjects for JSS3).
+
+var subjectsByClass = {
+    JSS1: [
+        {name:'Mathematics', icon:'📐', desc:'Numbers, algebra, geometry and problem solving.'},
+        {name:'English Language', icon:'📖', desc:'Grammar, comprehension, vocabulary and writing.'},
+        {name:'Basic Science', icon:'🔬', desc:'Explore scientific concepts and everyday life.'},
+        {name:'Basic Technology', icon:'⚙️', desc:'Learn technology, tools, materials and design.'},
+        {name:'Computer Studies', icon:'💻', desc:'Discover computers, digital skills and technology.'},
+        {name:'Social Studies', icon:'🌍', desc:'Understand society, culture and responsible living.'}
+    ],
+    JSS2: [
+        {name:'Mathematics', icon:'📐', desc:'Numbers, algebra, geometry and problem solving.'},
+        {name:'English Language', icon:'📖', desc:'Grammar, comprehension, vocabulary and writing.'},
+        {name:'Basic Science', icon:'🔬', desc:'Explore scientific concepts and everyday life.'},
+        {name:'Basic Technology', icon:'⚙️', desc:'Learn technology, tools, materials and design.'},
+        {name:'Computer Studies', icon:'💻', desc:'Discover computers, digital skills and technology.'},
+        {name:'Civic Education', icon:'🏛️', desc:'Learn about citizenship, rights and responsibilities.'}
+    ],
+    JSS3: [
+        {name:'Mathematics', icon:'📐', desc:'Numbers, algebra, geometry and problem solving.'},
+        {name:'English Language', icon:'📖', desc:'Grammar, comprehension, vocabulary and writing.'},
+        {name:'Basic Science', icon:'🔬', desc:'Explore scientific concepts and everyday life.'},
+        {name:'Business Studies', icon:'💼', desc:'Learn the basics of business and enterprise.'},
+        {name:'Computer Studies', icon:'💻', desc:'Discover computers, digital skills and technology.'},
+        {name:'Agricultural Science', icon:'🌱', desc:'Learn about farming, crops and animal care.'}
+    ]
+};
+
+
+// ---- Mobile menu ----
+
+function toggleMenu(){
+    document.getElementById('nav').classList.toggle('show');
+}
+
+
+// ---- Show subjects for a given class ----
+
+function showClass(className){
+
+    // Update heading
+    document.getElementById('classHeading').innerText = className + ' Learning Area';
+    document.getElementById('classSubheading').innerText =
+        'Subjects available for ' + className + '.';
+
+    // Highlight active button
+    ['JSS1','JSS2','JSS3'].forEach(function(c){
+        document.getElementById('btn' + c).classList.remove('active');
+    });
+    document.getElementById('btn' + className).classList.add('active');
+
+    // Build subject cards
+    var subjects = subjectsByClass[className] || [];
+    var grid = document.getElementById('subjectGrid');
+    grid.innerHTML = '';
+
+    subjects.forEach(function(subject){
+        var card = document.createElement('div');
+        card.className = 'card subject-card';
+        card.onclick = function(){ openSubject(subject.name); };
+
+        card.innerHTML =
+            '<div class="subject-icon">' + subject.icon + '</div>' +
+            '<h3>' + subject.name + '</h3>' +
+            '<p>' + subject.desc + '</p>';
+
+        grid.appendChild(card);
+    });
+
+    // Remember the last viewed class
+    localStorage.setItem('excellentia_last_class', className);
+
+    // Update the URL without reloading the page
+    var newUrl = window.location.pathname + '?class=' + className;
+    window.history.replaceState({}, '', newUrl);
+}
+
+
+// ---- Subject click ----
+
+function openSubject(subjectName){
+    showInfo(
+        subjectName,
+        'Lessons for ' + subjectName + ' are coming soon. ' +
+        'We are adding topics and lessons for this subject next.'
+    );
+}
+
+
+// ---- Info modal ----
+
+function showInfo(title, text){
+    document.getElementById('infoTitle').innerText = title;
+    document.getElementById('infoText').innerText = text;
+    document.getElementById('infoModal').style.display = 'block';
+}
+
+function closeInfo(){
+    document.getElementById('infoModal').style.display = 'none';
+}
+
+
+// ---- Work out which class to show on page load ----
+
+function getStartingClass(){
+    var params = new URLSearchParams(window.location.search);
+    var fromUrl = params.get('class');
+
+    if(fromUrl && subjectsByClass[fromUrl]){
+        return fromUrl;
+    }
+
+    var fromStorage = localStorage.getItem('excellentia_last_class');
+
+    if(fromStorage && subjectsByClass[fromStorage]){
+        return fromStorage;
+    }
+
+    return 'JSS1';
+}
+
+showClass(getStartingClass());
+
+
+// ---- Footer year ----
+
+document.getElementById('year').innerText = new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
