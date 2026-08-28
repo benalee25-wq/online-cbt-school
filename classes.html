@@ -464,6 +464,14 @@ function showClass(className){
 // ---- Subject click ----
 
 function openSubject(subjectName){
+    var linkedSubjects = ['Mathematics', 'English Language'];
+
+    if(linkedSubjects.indexOf(subjectName) !== -1){
+        var cls = localStorage.getItem('excellentia_last_class') || 'JSS1';
+        window.location.href = 'lessons.html?subject=' + encodeURIComponent(subjectName) + '&class=' + cls;
+        return;
+    }
+
     showInfo(
         subjectName,
         'Lessons for ' + subjectName + ' are coming soon. ' +
