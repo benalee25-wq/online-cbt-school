@@ -113,3 +113,758 @@ a{
     border:none;
     cursor:pointer;
     font-size:16px;
+}
+
+.btn-primary{
+    background:#075e54;
+    color:white;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:25px 18px;
+}
+
+.section-title{
+    text-align:center;
+    color:#075e54;
+    font-size:27px;
+    margin-bottom:8px;
+}
+
+.section-text{
+    text-align:center;
+    margin-bottom:25px;
+    color:#666;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:18px;
+}
+
+.card{
+    background:white;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.card h3{
+    color:#075e54;
+    margin-bottom:8px;
+}
+
+.class-card{
+    text-align:center;
+    border-top:5px solid #075e54;
+}
+
+.class-icon{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+.subject-card{
+    cursor:pointer;
+    transition:.2s;
+}
+
+.subject-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 7px 20px rgba(0,0,0,.12);
+}
+
+.subject-icon{
+    font-size:38px;
+    margin-bottom:8px;
+}
+
+.resource-card{
+    cursor:pointer;
+    transition:.2s;
+    text-align:center;
+}
+
+.resource-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 7px 20px rgba(0,0,0,.12);
+}
+
+.resource-icon{
+    font-size:38px;
+    margin-bottom:8px;
+}
+
+.features{
+    background:#e8f5f3;
+}
+
+.feature{
+    text-align:center;
+}
+
+.feature-icon{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.about{
+    background:white;
+}
+
+.cta{
+    background:#075e54;
+    color:white;
+    text-align:center;
+    border-radius:20px;
+    padding:35px 20px;
+}
+
+.cta h2{
+    margin-bottom:10px;
+}
+
+.cta p{
+    margin-bottom:20px;
+}
+
+.footer{
+    background:#073f3a;
+    color:white;
+    text-align:center;
+    padding:30px 18px;
+    margin-top:30px;
+}
+
+.footer p{
+    margin:5px 0;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    z-index:2000;
+    padding:20px;
+}
+
+.modal-content{
+    background:white;
+    max-width:500px;
+    margin:60px auto;
+    border-radius:18px;
+    padding:25px;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:18px;
+    top:12px;
+    font-size:28px;
+    cursor:pointer;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:9px;
+    font-size:16px;
+}
+
+.full-btn{
+    width:100%;
+}
+
+@media(min-width:700px){
+
+    .menu-btn{
+        display:none;
+    }
+
+    .nav{
+        display:flex;
+        background:transparent;
+        margin:0;
+        gap:20px;
+    }
+
+    .nav a{
+        border:0;
+        padding:5px;
+    }
+
+    .hero{
+        padding:90px 20px;
+    }
+
+    .hero h1{
+        font-size:48px;
+    }
+
+    .grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .features .grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="logo">
+            Excellentia Digital Academy
+        </div>
+
+        <button class="menu-btn" onclick="toggleMenu()">
+            ☰
+        </button>
+
+        <nav class="nav" id="nav">
+            <a href="#home" onclick="closeMenu()">Home</a>
+            <a href="#classes" onclick="closeMenu()">Classes</a>
+            <a href="#subjects" onclick="closeMenu()">Subjects</a>
+            <a href="#resources" onclick="closeMenu()">Resources</a>
+            <a href="#about" onclick="closeMenu()">About</a>
+            <a href="#contact" onclick="closeMenu()">Contact</a>
+            <a href="#" onclick="openLogin(); closeMenu();">Student Login</a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <h1>Excellentia Digital Academy</h1>
+
+    <div class="tagline">
+        Learn. Grow. Succeed.
+    </div>
+
+    <p>
+        A modern online learning platform designed to help
+        Nigerian secondary-school students learn effectively,
+        develop their skills and achieve academic success.
+    </p>
+
+    <button class="btn" onclick="scrollToClasses()">
+        Start Learning
+    </button>
+
+</section>
+
+
+<!-- CLASSES -->
+
+<section id="classes">
+
+<div class="container">
+
+    <h2 class="section-title">
+        Choose Your Class
+    </h2>
+
+    <p class="section-text">
+        Select your class to explore available learning resources.
+    </p>
+
+    <div class="grid">
+
+        <div class="card class-card">
+            <div class="class-icon">🎓</div>
+            <h3>JSS1</h3>
+            <p>
+                Build strong foundations and develop essential
+                academic skills.
+            </p>
+            <button class="btn btn-primary"
+                    onclick="selectClass('JSS1')">
+                Explore JSS1
+            </button>
+        </div>
+
+        <div class="card class-card">
+            <div class="class-icon">📚</div>
+            <h3>JSS2</h3>
+            <p>
+                Improve your knowledge and prepare for advanced
+                secondary-school learning.
+            </p>
+            <button class="btn btn-primary"
+                    onclick="selectClass('JSS2')">
+                Explore JSS2
+            </button>
+        </div>
+
+        <div class="card class-card">
+            <div class="class-icon">🏆</div>
+            <h3>JSS3</h3>
+            <p>
+                Strengthen your understanding and prepare for
+                important academic milestones.
+            </p>
+            <button class="btn btn-primary"
+                    onclick="selectClass('JSS3')">
+                Explore JSS3
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- SUBJECTS -->
+
+<section id="subjects">
+
+<div class="container">
+
+    <h2 class="section-title">
+        Popular Subjects
+    </h2>
+
+    <p class="section-text">
+        Learn important subjects through organized digital lessons.
+    </p>
+
+    <div class="grid">
+
+        <div class="card subject-card"
+             onclick="openSubject('Mathematics')">
+            <div class="subject-icon">📐</div>
+            <h3>Mathematics</h3>
+            <p>
+                Numbers, algebra, geometry and problem solving.
+            </p>
+        </div>
+
+        <div class="card subject-card"
+             onclick="openSubject('English Language')">
+            <div class="subject-icon">📖</div>
+            <h3>English Language</h3>
+            <p>
+                Grammar, comprehension, vocabulary and writing.
+            </p>
+        </div>
+
+        <div class="card subject-card"
+             onclick="openSubject('Basic Science')">
+            <div class="subject-icon">🔬</div>
+            <h3>Basic Science</h3>
+            <p>
+                Explore scientific concepts and everyday life.
+            </p>
+        </div>
+
+        <div class="card subject-card"
+             onclick="openSubject('Basic Technology')">
+            <div class="subject-icon">⚙️</div>
+            <h3>Basic Technology</h3>
+            <p>
+                Learn technology, tools, materials and design.
+            </p>
+        </div>
+
+        <div class="card subject-card"
+             onclick="openSubject('Computer Studies')">
+            <div class="subject-icon">💻</div>
+            <h3>Computer Studies</h3>
+            <p>
+                Discover computers, digital skills and technology.
+            </p>
+        </div>
+
+        <div class="card subject-card"
+             onclick="openSubject('Social Studies')">
+            <div class="subject-icon">🌍</div>
+            <h3>Social Studies</h3>
+            <p>
+                Understand society, culture and responsible living.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- LEARNING RESOURCES -->
+
+<section id="resources" class="features">
+
+<div class="container">
+
+    <h2 class="section-title">
+        Learning Resources
+    </h2>
+
+    <p class="section-text">
+        Extra materials to support every lesson.
+    </p>
+
+    <div class="grid">
+
+        <div class="card resource-card"
+             onclick="openResource('Notes')">
+            <div class="resource-icon">📝</div>
+            <h3>Study Notes</h3>
+            <p>
+                Clear, organized notes for every topic and subject.
+            </p>
+        </div>
+
+        <div class="card resource-card"
+             onclick="openResource('Videos')">
+            <div class="resource-icon">🎬</div>
+            <h3>Video Lessons</h3>
+            <p>
+                Watch topics explained step-by-step.
+            </p>
+        </div>
+
+        <div class="card resource-card"
+             onclick="openResource('Revision')">
+            <div class="resource-icon">🔁</div>
+            <h3>Revision Materials</h3>
+            <p>
+                Review and practice what you've already learned.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section class="features">
+
+<div class="container">
+
+    <h2 class="section-title">
+        Why Learn With Excellentia?
+    </h2>
+
+    <div class="grid">
+
+        <div class="card feature">
+
+            <div class="feature-icon">📱</div>
+
+            <h3>Learn Anywhere</h3>
+
+            <p>
+                Access your learning resources using your
+                smartphone, tablet or computer.
+            </p>
+
+        </div>
+
+
+        <div class="card feature">
+
+            <div class="feature-icon">📚</div>
+
+            <h3>Quality Lessons</h3>
+
+            <p>
+                Study organized lessons designed to make
+                difficult topics easier to understand.
+            </p>
+
+        </div>
+
+
+        <div class="card feature">
+
+            <div class="feature-icon">📊</div>
+
+            <h3>Track Your Progress</h3>
+
+            <p>
+                Monitor your learning activities and improve
+                your academic performance.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="about" id="about">
+
+<div class="container">
+
+    <h2 class="section-title">
+        About Excellentia Digital Academy
+    </h2>
+
+    <div class="card">
+
+        <p>
+            Excellentia Digital Academy is an online learning
+            platform created to provide secondary-school students
+            with accessible and engaging educational resources.
+        </p>
+
+        <br>
+
+        <p>
+            Our goal is to help students learn at their own pace,
+            understand their subjects better and develop the
+            confidence they need to succeed.
+        </p>
+
+        <br>
+
+        <p>
+            <strong>Learn. Grow. Succeed.</strong>
+        </p>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- CALL TO ACTION -->
+
+<section id="contact">
+
+<div class="container">
+
+    <div class="cta">
+
+        <h2>
+            Ready to Start Learning?
+        </h2>
+
+        <p>
+            Join Excellentia Digital Academy and begin
+            your learning journey today.
+        </p>
+
+        <button class="btn" onclick="openLogin()">
+            Student Login
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <h3>Excellentia Digital Academy</h3>
+
+    <p>Learn. Grow. Succeed.</p>
+
+    <p>
+        © <span id="year"></span>
+        Excellentia Digital Academy.
+        All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- LOGIN MODAL -->
+
+<div class="modal" id="loginModal">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeLogin()">
+            &times;
+        </span>
+
+        <h2 style="color:#075e54;">
+            Student Login
+        </h2>
+
+        <p>
+            Enter your details to access your learning area.
+        </p>
+
+        <input
+            type="text"
+            id="loginName"
+            placeholder="Enter your name"
+        >
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Enter your email"
+        >
+
+        <button class="btn btn-primary full-btn" onclick="submitLogin()">
+            Continue
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- INFO MODAL (for class / subject / resource "coming soon" messages) -->
+
+<div class="modal" id="infoModal">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeInfo()">
+            &times;
+        </span>
+
+        <h2 style="color:#075e54;" id="infoTitle">
+            Coming Soon
+        </h2>
+
+        <p id="infoText">
+            This section is being built.
+        </p>
+
+        <button class="btn btn-primary full-btn" onclick="closeInfo()">
+            Okay
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+// ---- Mobile menu ----
+
+function toggleMenu(){
+    document.getElementById('nav').classList.toggle('show');
+}
+
+function closeMenu(){
+    document.getElementById('nav').classList.remove('show');
+}
+
+
+// ---- Smooth scroll to classes section ----
+
+function scrollToClasses(){
+    document.getElementById('classes').scrollIntoView({behavior:'smooth'});
+}
+
+
+// ---- Class selection ----
+
+function selectClass(className){
+    window.location.href = 'classes.html?class=' + className;
+}
+
+
+// ---- Subject selection ----
+
+function openSubject(subjectName){
+    showInfo(
+        subjectName,
+        'Lessons for ' + subjectName + ' are coming soon. ' +
+        'We are adding topics and lessons for this subject next.'
+    );
+}
+
+
+// ---- Resource selection ----
+
+function openResource(resourceName){
+    showInfo(
+        resourceName,
+        resourceName + ' will be available here soon as we build out ' +
+        'the learning materials section.'
+    );
+}
+
+
+// ---- Generic info modal ----
+
+function showInfo(title, text){
+    document.getElementById('infoTitle').innerText = title;
+    document.getElementById('infoText').innerText = text;
+    document.getElementById('infoModal').style.display = 'block';
+}
+
+function closeInfo(){
+    document.getElementById('infoModal').style.display = 'none';
+}
+
+
+// ---- Login modal ----
+
+function openLogin(){
+    document.getElementById('loginModal').style.display = 'block';
+}
+
+function closeLogin(){
+    document.getElementById('loginModal').style.display = 'none';
+}
+
+function submitLogin(){
+    var name = document.getElementById('loginName').value.trim();
+    var email = document.getElementById('loginEmail').value.trim();
+
+    if(name === '' || email === ''){
+        alert('Please enter your name and email to continue.');
+        return;
+    }
+
+    alert('Thanks, ' + name + '! Full student accounts are coming soon. ' +
+          'We will notify you as soon as login is ready.');
+
+    closeLogin();
+}
+
+
+// ---- Footer year ----
+
+document.getElementById('year').innerText = new Date().getFullYear();
+
+</script>
+
+</body>
+</html>    
