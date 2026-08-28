@@ -337,9 +337,9 @@ input{
 
         <nav class="nav" id="nav">
             <a href="#home" onclick="closeMenu()">Home</a>
-            <a href="#classes" onclick="closeMenu()">Classes</a>
+            <a href="classes.html" onclick="closeMenu()">Classes</a>
             <a href="#subjects" onclick="closeMenu()">Subjects</a>
-            <a href="#resources" onclick="closeMenu()">Resources</a>
+            <a href="resources.html" onclick="closeMenu()">Resources</a>
             <a href="#about" onclick="closeMenu()">About</a>
             <a href="#contact" onclick="closeMenu()">Contact</a>
             <a href="#" onclick="openLogin(); closeMenu();">Student Login</a>
@@ -813,11 +813,12 @@ function openSubject(subjectName){
 // ---- Resource selection ----
 
 function openResource(resourceName){
-    showInfo(
-        resourceName,
-        resourceName + ' will be available here soon as we build out ' +
-        'the learning materials section.'
-    );
+    var tabMap = {
+        'Notes':'notes',
+        'Videos':'videos',
+        'Revision':'revision'
+    };
+    window.location.href = 'resources.html?tab=' + (tabMap[resourceName] || 'notes');
 }
 
 
@@ -867,4 +868,4 @@ document.getElementById('year').innerText = new Date().getFullYear();
 </script>
 
 </body>
-</html>    
+</html>
