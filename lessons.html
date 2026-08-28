@@ -1,1 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Lessons - Excellentia Digital Academy</title>
+
+<meta name="description" content="Excellentia Digital Academy - Lessons">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f5f7fa;
+    color:#222;
+    line-height:1.6;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+.header{
+    background:#075e54;
+    color:white;
+    padding:18px 20px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:21px;
+    font-weight:bold;
+}
+
+.menu-btn{
+    background:transparent;
+    border:0;
+    color:white;
+    font-size:28px;
+    width:auto;
+    padding:0;
+    margin:0;
+}
+
+.nav{
+    display:none;
+    background:#064c44;
+    margin-top:15px;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.nav a{
+    display:block;
+    padding:13px 15px;
+    color:white;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.nav.show{
+    display:block;
+}
+
+.page-hero{
+    background:linear-gradient(135deg,#075e54,#0a8f7f);
+    color:white;
+    text-align:center;
+    padding:35px 20px;
+}
+
+.page-hero h1{
+    font-size:28px;
+    margin-bottom:6px;
+}
+
+.page-hero p{
+    font-size:15px;
+    opacity:.95;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:25px 18px;
+}
+
+.back-link{
+    display:inline-block;
+    margin-bottom:15px;
+    color:#075e54;
+    font-weight:bold;
+}
+
+.section-title{
+    text-align:center;
+    color:#075e54;
+    font-size:24px;
+    margin-bottom:8px;
+}
+
+.section-text{
+    text-align:center;
+    margin-bottom:25px;
+    color:#666;
+}
+
+.topic-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.topic-item{
+    background:white;
+    border-radius:14px;
+    padding:18px 20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    transition:.2s;
+}
+
+.topic-item:hover{
+    transform:translateY(-2px);
+    box-shadow:0 7px 20px rgba(0,0,0,.12);
+}
+
+.topic-item h3{
+    color:#075e54;
+    font-size:17px;
+    margin-bottom:3px;
+}
+
+.topic-item p{
+    color:#666;
+    font-size:14px;
+}
+
+.topic-arrow{
+    font-size:22px;
+    color:#075e54;
+    margin-left:10px;
+}
+
+.lesson-card{
+    background:white;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.lesson-card h2{
+    color:#075e54;
+    font-size:22px;
+    margin-bottom:14px;
+}
+
+.lesson-block{
+    margin-bottom:20px;
+}
+
+.lesson-block h4{
+    color:#075e54;
+    font-size:15px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    margin-bottom:8px;
+}
+
+.lesson-block p{
+    color:#333;
+}
+
+.example-box{
+    background:#e8f5f3;
+    border-left:4px solid #075e54;
+    border-radius:8px;
+    padding:14px 16px;
+}
+
+.lesson-nav{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:20px;
+}
+
+.btn{
+    display:inline-block;
+    background:white;
+    color:#075e54;
+    padding:12px 20px;
+    border-radius:10px;
+    font-weight:bold;
+    border:2px solid #075e54;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.btn-primary{
+    background:#075e54;
+    color:white;
+}
+
+.btn[disabled]{
+    opacity:.4;
+    cursor:default;
+}
+
+.footer{
+    background:#073f3a;
+    color:white;
+    text-align:center;
+    padding:30px 18px;
+    margin-top:30px;
+}
+
+.footer p{
+    margin:5px 0;
+}
+
+@media(min-width:700px){
+
+    .menu-btn{
+        display:none;
+    }
+
+    .nav{
+        display:flex;
+        background:transparent;
+        margin:0;
+        gap:20px;
+    }
+
+    .nav a{
+        border:0;
+        padding:5px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="logo">
+            Excellentia Digital Academy
+        </div>
+
+        <button class="menu-btn" onclick="toggleMenu()">
+            ☰
+        </button>
+
+        <nav class="nav" id="nav">
+            <a href="index.html">Home</a>
+            <a href="classes.html">Classes</a>
+            <a href="index.html#subjects">Subjects</a>
+            <a href="index.html#resources">Resources</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- PAGE HERO -->
+
+<section class="page-hero">
+    <h1 id="pageHeading">Mathematics</h1>
+    <p id="pageSubheading">JSS1 &middot; Topics</p>
+</section>
+
+
+<!-- TOPIC LIST VIEW -->
+
+<section id="topicView">
+
+<div class="container">
+
+    <a href="#" class="back-link" id="backToClassLink">&larr; Back to Class</a>
+
+    <h2 class="section-title">Topics</h2>
+    <p class="section-text">Tap a topic to start the lesson.</p>
+
+    <div class="topic-list" id="topicList">
+        <!-- topic items inserted by JavaScript -->
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- LESSON DETAIL VIEW (hidden until a topic is selected) -->
+
+<section id="lessonView" style="display:none;">
+
+<div class="container">
+
+    <a href="#" class="back-link" onclick="showTopicList(); return false;">&larr; Back to Topics</a>
+
+    <div class="lesson-card">
+
+        <h2 id="lessonTitle">Topic Title</h2>
+
+        <div class="lesson-block">
+            <h4>Learning Objective</h4>
+            <p id="lessonObjective"></p>
+        </div>
+
+        <div class="lesson-block">
+            <h4>Explanation</h4>
+            <p id="lessonExplanation"></p>
+        </div>
+
+        <div class="lesson-block">
+            <h4>Example</h4>
+            <div class="example-box">
+                <p id="lessonExample"></p>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <button class="btn" id="prevBtn" onclick="goToLesson(currentTopicIndex - 1)">&larr; Previous</button>
+            <button class="btn btn-primary" id="nextBtn" onclick="goToLesson(currentTopicIndex + 1)">Next &rarr;</button>
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+    <h3>Excellentia Digital Academy</h3>
+    <p>Learn. Grow. Succeed.</p>
+    <p>© <span id="year"></span> Excellentia Digital Academy. All Rights Reserved.</p>
+</footer>
+
+
+<script>
+
+// ---- Lesson content ----
+// Add new topics inside a subject's array, or add a whole new
+// subject key (in quotes if it has a space in the name).
+
+var lessonData = {
+    Mathematics: [
+        {
+            title:'Whole Numbers',
+            objective:'Understand what whole numbers are and how to compare and order them.',
+            explanation:'Whole numbers are the counting numbers 0, 1, 2, 3, 4 and so on, with no fractions or decimals. They can be added, subtracted, multiplied and divided, and can be arranged from smallest to largest (ascending) or largest to smallest (descending).',
+            example:'Example: Arrange 42, 17, 89 and 5 in ascending order.\nAnswer: 5, 17, 42, 89.'
+        },
+        {
+            title:'Factors and Multiples',
+            objective:'Learn how to find the factors and multiples of a number.',
+            explanation:'A factor of a number divides into it exactly, with no remainder. A multiple of a number is what you get when you multiply it by a whole number.',
+            example:'Example: The factors of 12 are 1, 2, 3, 4, 6 and 12. The first four multiples of 3 are 3, 6, 9 and 12.'
+        },
+        {
+            title:'Fractions',
+            objective:'Understand fractions and how to add and subtract simple fractions.',
+            explanation:'A fraction represents a part of a whole, written as a numerator over a denominator, such as 1/2 or 3/4. To add or subtract fractions with the same denominator, add or subtract the numerators and keep the denominator the same.',
+            example:'Example: 1/4 + 2/4 = 3/4.'
+        },
+        {
+            title:'Introduction to Algebra',
+            objective:'Understand how letters can be used to represent unknown numbers.',
+            explanation:'In algebra, letters such as x or y stand for numbers we do not yet know. A simple equation shows a relationship that can be solved to find the value of the letter.',
+            example:'Example: If x + 3 = 8, then x = 5.'
+        },
+        {
+            title:'Decimals',
+            objective:'Understand what decimal numbers are and how to compare them.',
+            explanation:'A decimal number uses a decimal point to show parts of a whole, such as 0.5 or 3.25. Numbers can be compared by looking at the digits after the decimal point.',
+            example:'Example: 0.75 is greater than 0.7 because 75 hundredths is more than 70 hundredths.'
+        }
+    ],
+    "English Language": [
+        {
+            title:'Parts of Speech',
+            objective:'Identify nouns, verbs and adjectives in a sentence.',
+            explanation:'Every word in a sentence plays a role. A noun names a person, place or thing. A verb shows an action or state of being. An adjective describes a noun.',
+            example:'Example: In "The tall boy runs quickly," tall is an adjective and runs is a verb.'
+        }
+    ]
+};
+
+
+// ---- State ----
+
+var currentSubject = '';
+var currentClass = '';
+var currentTopicIndex = 0;
+
+
+// ---- Mobile menu ----
+
+function toggleMenu(){
+    document.getElementById('nav').classList.toggle('show');
+}
+
+
+// ---- Read subject/class from the URL ----
+
+function getParams(){
+    var params = new URLSearchParams(window.location.search);
+    var subject = params.get('subject') || 'Mathematics';
+    var cls = params.get('class') || 'JSS1';
+    return {subject:subject, class:cls};
+}
+
+
+// ---- Build the topic list ----
+
+function renderTopicList(){
+
+    var topics = lessonData[currentSubject] || [];
+    var list = document.getElementById('topicList');
+    list.innerHTML = '';
+
+    topics.forEach(function(topic, index){
+        var item = document.createElement('div');
+        item.className = 'topic-item';
+        item.onclick = function(){ goToLesson(index); };
+
+        item.innerHTML =
+            '<div>' +
+                '<h3>' + (index + 1) + '. ' + topic.title + '</h3>' +
+                '<p>' + topic.objective + '</p>' +
+            '</div>' +
+            '<div class="topic-arrow">&rsaquo;</div>';
+
+        list.appendChild(item);
+    });
+}
+
+
+// ---- Show topic list view ----
+
+function showTopicList(){
+    document.getElementById('topicView').style.display = 'block';
+    document.getElementById('lessonView').style.display = 'none';
+}
+
+
+// ---- Show a specific lesson ----
+
+function goToLesson(index){
+
+    var topics = lessonData[currentSubject] || [];
+
+    if(index < 0 || index >= topics.length){
+        return;
+    }
+
+    currentTopicIndex = index;
+    var topic = topics[index];
+
+    document.getElementById('lessonTitle').innerText = topic.title;
+    document.getElementById('lessonObjective').innerText = topic.objective;
+    document.getElementById('lessonExplanation').innerText = topic.explanation;
+    document.getElementById('lessonExample').innerText = topic.example;
+
+    document.getElementById('prevBtn').disabled = (index === 0);
+    document.getElementById('nextBtn').disabled = (index === topics.length - 1);
+
+    document.getElementById('topicView').style.display = 'none';
+    document.getElementById('lessonView').style.display = 'block';
+
+    window.scrollTo(0, 0);
+}
+
+
+// ---- Page setup ----
+
+function setupPage(){
+
+    var params = getParams();
+    currentSubject = params.subject;
+    currentClass = params.class;
+
+    document.getElementById('pageHeading').innerText = currentSubject;
+    document.getElementById('pageSubheading').innerText = currentClass + ' \u00B7 Topics';
+
+    document.getElementById('backToClassLink').href =
+        'classes.html?class=' + currentClass;
+
+    if(!lessonData[currentSubject]){
+        document.getElementById('topicList').innerHTML =
+            '<p style="text-align:center;color:#666;">Lessons for ' + currentSubject +
+            ' are coming soon.</p>';
+        return;
+    }
+
+    renderTopicList();
+}
+
+setupPage();
+
+
+// ---- Footer year ----
+
+document.getElementById('year').innerText = new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
