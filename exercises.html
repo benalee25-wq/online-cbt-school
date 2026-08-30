@@ -1,1 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Exercises - Excellentia Digital Academy</title>
+
+<meta name="description" content="Excellentia Digital Academy - Practice Exercises">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f5f7fa;
+    color:#222;
+    line-height:1.6;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+.header{
+    background:#075e54;
+    color:white;
+    padding:18px 20px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:21px;
+    font-weight:bold;
+}
+
+.menu-btn{
+    background:transparent;
+    border:0;
+    color:white;
+    font-size:28px;
+    width:auto;
+    padding:0;
+    margin:0;
+}
+
+.nav{
+    display:none;
+    background:#064c44;
+    margin-top:15px;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.nav a{
+    display:block;
+    padding:13px 15px;
+    color:white;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.nav.show{
+    display:block;
+}
+
+.page-hero{
+    background:linear-gradient(135deg,#075e54,#0a8f7f);
+    color:white;
+    text-align:center;
+    padding:35px 20px;
+}
+
+.page-hero h1{
+    font-size:28px;
+    margin-bottom:6px;
+}
+
+.page-hero p{
+    font-size:14px;
+    opacity:.95;
+}
+
+.subject-switch{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:18px;
+}
+
+.subject-switch button{
+    background:rgba(255,255,255,.15);
+    color:white;
+    border:2px solid white;
+    padding:8px 14px;
+    border-radius:30px;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.subject-switch button.active{
+    background:white;
+    color:#075e54;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:25px 18px;
+}
+
+.back-link{
+    display:inline-block;
+    margin-bottom:15px;
+    color:#075e54;
+    font-weight:bold;
+}
+
+.progress-text{
+    text-align:center;
+    color:#666;
+    font-size:14px;
+    margin-bottom:18px;
+}
+
+.question-card{
+    background:white;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.question-card h2{
+    color:#075e54;
+    font-size:19px;
+    margin-bottom:20px;
+}
+
+.option-btn{
+    display:block;
+    width:100%;
+    text-align:left;
+    background:#f5f7fa;
+    border:2px solid #e0e0e0;
+    border-radius:10px;
+    padding:14px 16px;
+    margin-bottom:12px;
+    font-size:15px;
+    cursor:pointer;
+    color:#222;
+}
+
+.option-btn.correct{
+    background:#e3f6e8;
+    border-color:#2e9e4f;
+    color:#1c6b34;
+    font-weight:bold;
+}
+
+.option-btn.incorrect{
+    background:#fdecec;
+    border-color:#c0392b;
+    color:#a53125;
+    font-weight:bold;
+}
+
+.option-btn[disabled]{
+    cursor:default;
+}
+
+.feedback-box{
+    margin-top:14px;
+    padding:14px 16px;
+    border-radius:10px;
+    background:#e8f5f3;
+    border-left:4px solid #075e54;
+    color:#333;
+    display:none;
+}
+
+.feedback-box.show{
+    display:block;
+}
+
+.btn{
+    display:inline-block;
+    background:white;
+    color:#075e54;
+    padding:14px 24px;
+    border-radius:10px;
+    font-weight:bold;
+    border:2px solid #075e54;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.btn-primary{
+    background:#075e54;
+    color:white;
+}
+
+.full-btn{
+    width:100%;
+    margin-top:18px;
+}
+
+.summary-card{
+    background:white;
+    border-radius:16px;
+    padding:30px 24px;
+    text-align:center;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.summary-card h2{
+    color:#075e54;
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.summary-score{
+    font-size:40px;
+    font-weight:bold;
+    color:#075e54;
+    margin:15px 0;
+}
+
+.summary-card p{
+    color:#555;
+    margin-bottom:6px;
+}
+
+.footer{
+    background:#073f3a;
+    color:white;
+    text-align:center;
+    padding:30px 18px;
+    margin-top:30px;
+}
+
+.footer p{
+    margin:5px 0;
+}
+
+@media(min-width:700px){
+
+    .menu-btn{
+        display:none;
+    }
+
+    .nav{
+        display:flex;
+        background:transparent;
+        margin:0;
+        gap:20px;
+    }
+
+    .nav a{
+        border:0;
+        padding:5px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="logo">
+            Excellentia Digital Academy
+        </div>
+
+        <button class="menu-btn" onclick="toggleMenu()">
+            ☰
+        </button>
+
+        <nav class="nav" id="nav">
+            <a href="index.html">Home</a>
+            <a href="classes.html">Classes</a>
+            <a href="index.html#subjects">Subjects</a>
+            <a href="resources.html">Resources</a>
+            <a href="exercises.html">Exercises</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- PAGE HERO -->
+
+<section class="page-hero">
+
+    <h1>Practice Exercises</h1>
+    <p>Untimed practice activities to strengthen what you've learned.</p>
+
+    <div class="subject-switch">
+        <button id="tabMathematics" onclick="showSubject('Mathematics')">Mathematics</button>
+        <button id="tabICT" onclick="showSubject('ICT')">ICT</button>
+        <button id="tabBasicTechnology" onclick="showSubject('Basic Technology')">Basic Tech</button>
+        <button id="tabBasicScience" onclick="showSubject('Basic Science')">Basic Science</button>
+    </div>
+
+</section>
+
+
+<div class="container">
+
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+
+    <p class="progress-text" id="progressText"></p>
+
+    <!-- QUESTION VIEW -->
+
+    <div class="question-card" id="questionCard">
+
+        <h2 id="questionText">Question text</h2>
+
+        <div id="optionsList">
+            <!-- option buttons inserted by JavaScript -->
+        </div>
+
+        <div class="feedback-box" id="feedbackBox"></div>
+
+        <button class="btn btn-primary full-btn" id="nextBtn" onclick="nextQuestion()" style="display:none;">
+            Next Question &rarr;
+        </button>
+
+    </div>
+
+
+    <!-- SUMMARY VIEW -->
+
+    <div class="summary-card" id="summaryCard" style="display:none;">
+
+        <h2>Nice work!</h2>
+
+        <div class="summary-score" id="summaryScore">0/0</div>
+
+        <p id="summaryMessage">You've completed this set of exercises.</p>
+
+        <button class="btn btn-primary full-btn" onclick="restartExercise()">
+            Try Again
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+    <h3>Excellentia Digital Academy</h3>
+    <p>Learn. Grow. Succeed.</p>
+    <p>© <span id="year"></span> Excellentia Digital Academy. All Rights Reserved.</p>
+</footer>
+
+
+<script>
+
+// ---- Exercise content ----
+// These are practice exercises, not a timed test. Each question has
+// 4 options, one correct answer, and a short explanation shown after
+// the student answers.
+
+var exerciseData = {
+
+    Mathematics: [
+        {
+            question:'What is 3/8 + 2/8?',
+            options:['5/8', '5/16', '1/8', '6/8'],
+            correctIndex:0,
+            explanation:'Since the denominators are the same, add the numerators: 3 + 2 = 5. Answer: 5/8.'
+        },
+        {
+            question:'Which of these is a factor of 20?',
+            options:['3', '6', '5', '9'],
+            correctIndex:2,
+            explanation:'20 divided by 5 equals 4 exactly, with no remainder, so 5 is a factor of 20.'
+        },
+        {
+            question:'Solve: x + 5 = 12. What is x?',
+            options:['x = 5', 'x = 6', 'x = 7', 'x = 17'],
+            correctIndex:2,
+            explanation:'Subtract 5 from both sides: x = 12 - 5 = 7.'
+        },
+        {
+            question:'Simplify using BODMAS: 4 + 2 x 3.',
+            options:['18', '10', '9', '20'],
+            correctIndex:1,
+            explanation:'Multiplication comes before addition: 2 x 3 = 6, then 4 + 6 = 10.'
+        },
+        {
+            question:'What is 25% of 80?',
+            options:['15', '20', '25', '40'],
+            correctIndex:1,
+            explanation:'25% equals 1/4, and 80 divided by 4 = 20.'
+        }
+    ],
+
+    ICT: [
+        {
+            question:'Which of these is an example of computer hardware?',
+            options:['Microsoft Word', 'A web browser', 'The keyboard', 'A computer game file'],
+            correctIndex:2,
+            explanation:'The keyboard is a physical part of the computer, so it is hardware. The others are software.'
+        },
+        {
+            question:'Which key is used to type a capital letter?',
+            options:['Enter', 'Shift', 'Space bar', 'Ctrl'],
+            correctIndex:1,
+            explanation:'Holding Shift while pressing a letter key types the capital version of that letter.'
+        },
+        {
+            question:'A printer is an example of what type of device?',
+            options:['Input device', 'Output device', 'Storage device', 'Processing device'],
+            correctIndex:1,
+            explanation:'A printer produces a result (a printed page) from the computer, making it an output device.'
+        },
+        {
+            question:'What does ICT stand for?',
+            options:[
+                'Information and Computer Tools',
+                'Internet Computing Technology',
+                'Information and Communication Technology',
+                'Interactive Computer Training'
+            ],
+            correctIndex:2,
+            explanation:'ICT stands for Information and Communication Technology.'
+        },
+        {
+            question:'Which of these is good online safety practice?',
+            options:[
+                'Sharing your password with a new online friend',
+                'Keeping your password private',
+                'Clicking every link you receive',
+                'Ignoring suspicious messages without telling anyone'
+            ],
+            correctIndex:1,
+            explanation:'Keeping your password private protects your personal information and accounts from others.'
+        }
+    ],
+
+    "Basic Technology": [
+        {
+            question:'Which tool is used to tighten or loosen a screw?',
+            options:['Hammer', 'Screwdriver', 'Pliers', 'Tape rule'],
+            correctIndex:1,
+            explanation:'A screwdriver is designed to match a screw head, allowing it to be tightened or loosened.'
+        },
+        {
+            question:'What instrument is used to draw a perfect circle in technical drawing?',
+            options:['T-square', 'Set square', 'Compass', 'Scale rule'],
+            correctIndex:2,
+            explanation:'A compass is specifically designed for drawing circles and arcs accurately.'
+        },
+        {
+            question:'Why is it important to store tools properly after use?',
+            options:[
+                'It makes the workshop look nice only',
+                'It prevents accidental injury and damage to tools',
+                'It is not actually important',
+                'It is only needed for expensive tools'
+            ],
+            correctIndex:1,
+            explanation:'Proper storage prevents accidents and keeps tools from getting damaged or lost.'
+        },
+        {
+            question:'Basic Technology mainly helps develop which kind of skill?',
+            options:['Singing skills', 'Practical, hands-on skills', 'Cooking skills only', 'Memorisation skills only'],
+            correctIndex:1,
+            explanation:'Basic Technology focuses on practical, hands-on and problem-solving skills.'
+        },
+        {
+            question:'Which tool would you use to measure the length of a piece of wood?',
+            options:['Hammer', 'Screwdriver', 'Tape rule', 'Pliers'],
+            correctIndex:2,
+            explanation:'A tape rule (measuring tape) is the correct tool for measuring length.'
+        }
+    ],
+
+    "Basic Science": [
+        {
+            question:'Which of these is a characteristic of all living things?',
+            options:['They are always green', 'They can reproduce', 'They must be able to fly', 'They never change'],
+            correctIndex:1,
+            explanation:'Reproduction (making more of their own kind) is a shared characteristic of living things.'
+        },
+        {
+            question:'Which organ pumps blood around the body?',
+            options:['The lungs', 'The brain', 'The heart', 'The stomach'],
+            correctIndex:2,
+            explanation:'The heart is the main organ of the circulatory system and pumps blood around the body.'
+        },
+        {
+            question:'Which state of matter has no fixed shape and no fixed volume?',
+            options:['Solid', 'Liquid', 'Gas', 'None of these'],
+            correctIndex:2,
+            explanation:'A gas spreads out to fill any container, so it has neither a fixed shape nor a fixed volume.'
+        },
+        {
+            question:'Is a wooden chair living or non-living?',
+            options:['Living', 'Non-living', 'Both', 'Cannot be determined'],
+            correctIndex:1,
+            explanation:'A wooden chair does not grow, reproduce, or respond to its environment, so it is non-living.'
+        },
+        {
+            question:'What happens to water when it is heated enough?',
+            options:['It turns into ice', 'It disappears completely', 'It changes into steam (a gas)', 'It becomes a solid'],
+            correctIndex:2,
+            explanation:'Heating water enough causes it to evaporate/boil, turning it into steam, which is a gas.'
+        }
+    ]
+};
+
+
+// ---- State ----
+
+var currentSubject = 'Mathematics';
+var currentIndex = 0;
+var correctCount = 0;
+var answered = false;
+
+
+// ---- Mobile menu ----
+
+function toggleMenu(){
+    document.getElementById('nav').classList.toggle('show');
+}
+
+
+// ---- Subject switching ----
+
+function showSubject(subject){
+
+    currentSubject = subject;
+    currentIndex = 0;
+    correctCount = 0;
+    answered = false;
+
+    var tabIds = {
+        'Mathematics':'tabMathematics',
+        'ICT':'tabICT',
+        'Basic Technology':'tabBasicTechnology',
+        'Basic Science':'tabBasicScience'
+    };
+
+    Object.keys(tabIds).forEach(function(key){
+        document.getElementById(tabIds[key]).classList.remove('active');
+    });
+    document.getElementById(tabIds[subject]).classList.add('active');
+
+    document.getElementById('questionCard').style.display = 'block';
+    document.getElementById('summaryCard').style.display = 'none';
+
+    renderQuestion();
+}
+
+
+// ---- Render current question ----
+
+function renderQuestion(){
+
+    var questions = exerciseData[currentSubject] || [];
+    var q = questions[currentIndex];
+
+    if(!q){ return; }
+
+    answered = false;
+
+    document.getElementById('progressText').innerText =
+        'Question ' + (currentIndex + 1) + ' of ' + questions.length;
+
+    document.getElementById('questionText').innerText = q.question;
+
+    var optionsList = document.getElementById('optionsList');
+    optionsList.innerHTML = '';
+
+    q.options.forEach(function(option, index){
+        var btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = option;
+        btn.onclick = function(){ selectAnswer(index); };
+        optionsList.appendChild(btn);
+    });
+
+    document.getElementById('feedbackBox').classList.remove('show');
+    document.getElementById('feedbackBox').innerText = '';
+    document.getElementById('nextBtn').style.display = 'none';
+}
+
+
+// ---- Handle answer selection ----
+
+function selectAnswer(selectedIndex){
+
+    if(answered){ return; }
+    answered = true;
+
+    var questions = exerciseData[currentSubject] || [];
+    var q = questions[currentIndex];
+
+    var buttons = document.querySelectorAll('#optionsList .option-btn');
+
+    buttons.forEach(function(btn, index){
+        btn.disabled = true;
+        if(index === q.correctIndex){
+            btn.classList.add('correct');
+        } else if(index === selectedIndex){
+            btn.classList.add('incorrect');
+        }
+    });
+
+    if(selectedIndex === q.correctIndex){
+        correctCount++;
+    }
+
+    var feedbackBox = document.getElementById('feedbackBox');
+    feedbackBox.innerText = q.explanation;
+    feedbackBox.classList.add('show');
+
+    document.getElementById('nextBtn').style.display = 'block';
+    document.getElementById('nextBtn').innerText =
+        (currentIndex === questions.length - 1) ? 'See Results' : 'Next Question →';
+}
+
+
+// ---- Move to next question or show summary ----
+
+function nextQuestion(){
+
+    var questions = exerciseData[currentSubject] || [];
+
+    if(currentIndex < questions.length - 1){
+        currentIndex++;
+        renderQuestion();
+    } else {
+        showSummary();
+    }
+}
+
+
+// ---- Show summary screen ----
+
+function showSummary(){
+
+    var questions = exerciseData[currentSubject] || [];
+
+    document.getElementById('questionCard').style.display = 'none';
+    document.getElementById('summaryCard').style.display = 'block';
+    document.getElementById('progressText').innerText = '';
+
+    document.getElementById('summaryScore').innerText = correctCount + '/' + questions.length;
+
+    var message = '';
+    if(correctCount === questions.length){
+        message = 'Excellent! You got every question right.';
+    } else if(correctCount >= questions.length / 2){
+        message = 'Good effort! Review the topics you missed and try again anytime.';
+    } else {
+        message = 'Keep practicing - revisit the lesson and try this set again.';
+    }
+    document.getElementById('summaryMessage').innerText = message;
+}
+
+
+// ---- Restart current subject's exercises ----
+
+function restartExercise(){
+    showSubject(currentSubject);
+}
+
+
+// ---- Page setup ----
+
+function getStartingSubject(){
+    var params = new URLSearchParams(window.location.search);
+    var fromUrl = params.get('subject');
+    var validSubjects = ['Mathematics', 'ICT', 'Basic Technology', 'Basic Science'];
+
+    if(fromUrl && validSubjects.indexOf(fromUrl) !== -1){
+        return fromUrl;
+    }
+    return 'Mathematics';
+}
+
+showSubject(getStartingSubject());
+
+
+// ---- Footer year ----
+
+document.getElementById('year').innerText = new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
