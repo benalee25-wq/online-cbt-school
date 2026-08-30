@@ -387,27 +387,21 @@ a{
 var subjectsByClass = {
     JSS1: [
         {name:'Mathematics', icon:'📐', desc:'Numbers, algebra, geometry and problem solving.'},
-        {name:'English Language', icon:'📖', desc:'Grammar, comprehension, vocabulary and writing.'},
         {name:'Basic Science', icon:'🔬', desc:'Explore scientific concepts and everyday life.'},
         {name:'Basic Technology', icon:'⚙️', desc:'Learn technology, tools, materials and design.'},
-        {name:'Computer Studies', icon:'💻', desc:'Discover computers, digital skills and technology.'},
-        {name:'Social Studies', icon:'🌍', desc:'Understand society, culture and responsible living.'}
+        {name:'ICT', icon:'💻', desc:'Discover computers, digital skills and technology.'}
     ],
     JSS2: [
         {name:'Mathematics', icon:'📐', desc:'Numbers, algebra, geometry and problem solving.'},
-        {name:'English Language', icon:'📖', desc:'Grammar, comprehension, vocabulary and writing.'},
         {name:'Basic Science', icon:'🔬', desc:'Explore scientific concepts and everyday life.'},
         {name:'Basic Technology', icon:'⚙️', desc:'Learn technology, tools, materials and design.'},
-        {name:'Computer Studies', icon:'💻', desc:'Discover computers, digital skills and technology.'},
-        {name:'Civic Education', icon:'🏛️', desc:'Learn about citizenship, rights and responsibilities.'}
+        {name:'ICT', icon:'💻', desc:'Discover computers, digital skills and technology.'}
     ],
     JSS3: [
         {name:'Mathematics', icon:'📐', desc:'Numbers, algebra, geometry and problem solving.'},
-        {name:'English Language', icon:'📖', desc:'Grammar, comprehension, vocabulary and writing.'},
         {name:'Basic Science', icon:'🔬', desc:'Explore scientific concepts and everyday life.'},
-        {name:'Business Studies', icon:'💼', desc:'Learn the basics of business and enterprise.'},
-        {name:'Computer Studies', icon:'💻', desc:'Discover computers, digital skills and technology.'},
-        {name:'Agricultural Science', icon:'🌱', desc:'Learn about farming, crops and animal care.'}
+        {name:'Basic Technology', icon:'⚙️', desc:'Learn technology, tools, materials and design.'},
+        {name:'ICT', icon:'💻', desc:'Discover computers, digital skills and technology.'}
     ]
 };
 
@@ -464,7 +458,7 @@ function showClass(className){
 // ---- Subject click ----
 
 function openSubject(subjectName){
-    var linkedSubjects = ['Mathematics', 'English Language', 'Basic Science'];
+    var linkedSubjects = ['Mathematics', 'Basic Science', 'Basic Technology', 'ICT'];
 
     if(linkedSubjects.indexOf(subjectName) !== -1){
         var cls = localStorage.getItem('excellentia_last_class') || 'JSS1';
