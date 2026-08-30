@@ -176,19 +176,29 @@ a{
 }
 
 .lesson-block{
-    margin-bottom:20px;
+    margin-bottom:24px;
 }
 
 .lesson-block h4{
     color:#075e54;
-    font-size:15px;
+    font-size:14px;
     text-transform:uppercase;
     letter-spacing:.5px;
-    margin-bottom:8px;
+    margin-bottom:10px;
 }
 
 .lesson-block p{
     color:#333;
+    margin-bottom:10px;
+}
+
+.objectives-list{
+    padding-left:20px;
+}
+
+.objectives-list li{
+    color:#333;
+    margin-bottom:6px;
 }
 
 .example-box{
@@ -196,6 +206,62 @@ a{
     border-left:4px solid #075e54;
     border-radius:8px;
     padding:14px 16px;
+    margin-bottom:14px;
+}
+
+.example-box .ex-label{
+    font-weight:bold;
+    color:#075e54;
+    font-size:13px;
+    text-transform:uppercase;
+    margin-bottom:6px;
+}
+
+.example-box .ex-problem{
+    font-weight:bold;
+    color:#222;
+    margin-bottom:6px;
+}
+
+.example-box .ex-solution{
+    color:#333;
+}
+
+.practice-item{
+    background:#fdf7e8;
+    border-left:4px solid #d9a017;
+    border-radius:8px;
+    padding:14px 16px;
+    margin-bottom:12px;
+}
+
+.practice-item .pq-question{
+    font-weight:bold;
+    color:#222;
+    margin-bottom:8px;
+}
+
+.reveal-btn{
+    background:none;
+    border:1px solid #d9a017;
+    color:#8a6d13;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.pq-answer{
+    display:none;
+    margin-top:10px;
+    color:#333;
+    border-top:1px dashed #d9a017;
+    padding-top:10px;
+}
+
+.pq-answer.show{
+    display:block;
 }
 
 .lesson-nav{
@@ -280,7 +346,7 @@ a{
             <a href="index.html">Home</a>
             <a href="classes.html">Classes</a>
             <a href="index.html#subjects">Subjects</a>
-            <a href="index.html#resources">Resources</a>
+            <a href="resources.html">Resources</a>
             <a href="index.html#about">About</a>
             <a href="index.html#contact">Contact</a>
         </nav>
@@ -331,20 +397,23 @@ a{
         <h2 id="lessonTitle">Topic Title</h2>
 
         <div class="lesson-block">
-            <h4>Learning Objective</h4>
-            <p id="lessonObjective"></p>
+            <h4>Learning Objectives</h4>
+            <ul class="objectives-list" id="lessonObjectives"></ul>
         </div>
 
         <div class="lesson-block">
             <h4>Explanation</h4>
-            <p id="lessonExplanation"></p>
+            <div id="lessonExplanation"></div>
         </div>
 
         <div class="lesson-block">
-            <h4>Example</h4>
-            <div class="example-box">
-                <p id="lessonExample"></p>
-            </div>
+            <h4>Worked Examples</h4>
+            <div id="lessonExamples"></div>
+        </div>
+
+        <div class="lesson-block">
+            <h4>Practice Questions</h4>
+            <div id="lessonPractice"></div>
         </div>
 
         <div class="lesson-nav">
@@ -371,95 +440,803 @@ a{
 <script>
 
 // ---- Lesson content ----
-// Add new topics inside a subject's array, or add a whole new
-// subject key (in quotes if it has a space in the name).
+// Each topic has: objectives (list), explanation (list of
+// paragraphs), examples (list of problem/solution pairs), and
+// practice (list of question/answer pairs, answer hidden until tapped).
+// Aligned to the NERDC/WAEC junior secondary syllabus.
 
 var lessonData = {
+
     Mathematics: [
         {
             title:'Whole Numbers',
-            objective:'Understand what whole numbers are and how to compare and order them.',
-            explanation:'Whole numbers are the counting numbers 0, 1, 2, 3, 4 and so on, with no fractions or decimals. They can be added, subtracted, multiplied and divided, and can be arranged from smallest to largest (ascending) or largest to smallest (descending).',
-            example:'Example: Arrange 42, 17, 89 and 5 in ascending order.\nAnswer: 5, 17, 42, 89.'
+            objectives:[
+                'Define whole numbers and identify them among other types of numbers.',
+                'Compare and order whole numbers from smallest to largest and largest to smallest.',
+                'Read and write whole numbers in figures and in words.'
+            ],
+            explanation:[
+                'Whole numbers are the counting numbers 0, 1, 2, 3, 4, 5 and so on, continuing without end. They do not include fractions, decimals or negative numbers.',
+                'To compare two whole numbers, first compare the number of digits - a number with more digits is always larger, as long as neither number has a leading zero. If both numbers have the same number of digits, compare them digit by digit starting from the leftmost (highest place value) digit.',
+                'Arranging numbers from smallest to largest is called ascending order. Arranging them from largest to smallest is called descending order.'
+            ],
+            examples:[
+                {
+                    problem:'Arrange 42, 17, 89 and 5 in ascending order.',
+                    solution:'5 has 1 digit, while 42, 17 and 89 all have 2 digits, so 5 is the smallest. Comparing the 2-digit numbers by their tens digit: 17 (tens digit 1), 42 (tens digit 4), 89 (tens digit 8). Ascending order: 5, 17, 42, 89.'
+                },
+                {
+                    problem:'Which is greater, 3,450 or 3,405?',
+                    solution:'Both numbers have 4 digits and the same thousands digit (3) and hundreds digit (4). Compare the tens digit: 5 in 3,450 versus 0 in 3,405. Since 5 is greater than 0, 3,450 is the greater number.'
+                }
+            ],
+            practice:[
+                {
+                    question:'Arrange 120, 12, 210 and 21 in descending order.',
+                    answer:'210, 120, 21, 12'
+                },
+                {
+                    question:'Which is smaller, 8,760 or 8,706?',
+                    answer:'8,706 is smaller, because comparing the tens digit (6 versus 0), 0 is less than 6.'
+                },
+                {
+                    question:'Write 5,208 in words.',
+                    answer:'Five thousand, two hundred and eight.'
+                }
+            ]
         },
         {
             title:'Factors and Multiples',
-            objective:'Learn how to find the factors and multiples of a number.',
-            explanation:'A factor of a number divides into it exactly, with no remainder. A multiple of a number is what you get when you multiply it by a whole number.',
-            example:'Example: The factors of 12 are 1, 2, 3, 4, 6 and 12. The first four multiples of 3 are 3, 6, 9 and 12.'
+            objectives:[
+                'Find all the factors of a given whole number.',
+                'List the first several multiples of a given whole number.',
+                'Distinguish between a factor and a multiple.'
+            ],
+            explanation:[
+                'A factor of a number is a whole number that divides into it exactly, leaving no remainder. Every whole number greater than 1 has at least two factors: 1 and itself.',
+                'A multiple of a number is the result of multiplying that number by any whole number (1, 2, 3, ...). Multiples of a number are always greater than or equal to the number itself.',
+                'A simple way to find factors is to test each whole number starting from 1 up to the number itself, checking which ones divide evenly. To find multiples, simply keep adding the number to itself repeatedly.'
+            ],
+            examples:[
+                {
+                    problem:'List all the factors of 12.',
+                    solution:'Test each number: 1 (12/1=12 ✓), 2 (12/2=6 ✓), 3 (12/3=4 ✓), 4 (12/4=3 ✓), 6 (12/6=2 ✓), 12 (12/12=1 ✓). Factors of 12: 1, 2, 3, 4, 6, 12.'
+                },
+                {
+                    problem:'Write the first five multiples of 6.',
+                    solution:'6x1=6, 6x2=12, 6x3=18, 6x4=24, 6x5=30. First five multiples: 6, 12, 18, 24, 30.'
+                }
+            ],
+            practice:[
+                {
+                    question:'List all the factors of 18.',
+                    answer:'1, 2, 3, 6, 9, 18'
+                },
+                {
+                    question:'Write the first four multiples of 9.',
+                    answer:'9, 18, 27, 36'
+                },
+                {
+                    question:'Is 7 a factor of 42? Explain.',
+                    answer:'Yes, because 42 divided by 7 equals 6 exactly, with no remainder.'
+                }
+            ]
         },
         {
             title:'Fractions',
-            objective:'Understand fractions and how to add and subtract simple fractions.',
-            explanation:'A fraction represents a part of a whole, written as a numerator over a denominator, such as 1/2 or 3/4. To add or subtract fractions with the same denominator, add or subtract the numerators and keep the denominator the same.',
-            example:'Example: 1/4 + 2/4 = 3/4.'
+            objectives:[
+                'Explain what a fraction represents and identify the numerator and denominator.',
+                'Add and subtract fractions that have the same denominator.',
+                'Compare simple fractions to determine which is larger.'
+            ],
+            explanation:[
+                'A fraction represents a part of a whole. It is written as one number over another, such as 3/4, where the top number (numerator) shows how many parts are being considered, and the bottom number (denominator) shows the total number of equal parts the whole is divided into.',
+                'To add or subtract fractions that already share the same denominator, simply add or subtract the numerators and keep the denominator unchanged.',
+                'To compare two fractions with the same denominator, the fraction with the larger numerator is the larger fraction.'
+            ],
+            examples:[
+                {
+                    problem:'Add 1/4 and 2/4.',
+                    solution:'The denominators are the same (4), so add the numerators: 1 + 2 = 3. Result: 3/4.'
+                },
+                {
+                    problem:'Which is larger, 3/8 or 5/8?',
+                    solution:'Both fractions have the same denominator (8), so compare the numerators: 5 is greater than 3. Therefore 5/8 is larger.'
+                }
+            ],
+            practice:[
+                {
+                    question:'Add 2/6 and 3/6.',
+                    answer:'5/6'
+                },
+                {
+                    question:'Subtract 2/9 from 7/9.',
+                    answer:'5/9'
+                },
+                {
+                    question:'Which is smaller, 4/10 or 7/10?',
+                    answer:'4/10 is smaller, since 4 is less than 7.'
+                }
+            ]
         },
         {
             title:'Introduction to Algebra',
-            objective:'Understand how letters can be used to represent unknown numbers.',
-            explanation:'In algebra, letters such as x or y stand for numbers we do not yet know. A simple equation shows a relationship that can be solved to find the value of the letter.',
-            example:'Example: If x + 3 = 8, then x = 5.'
+            objectives:[
+                'Understand that a letter can represent an unknown number.',
+                'Write simple algebraic expressions from word statements.',
+                'Solve simple one-step equations to find the value of an unknown.'
+            ],
+            explanation:[
+                'In algebra, letters such as x, y or n are used to represent numbers that are not yet known. This allows us to describe general relationships and solve problems where a value must be found.',
+                'An equation is a statement that says two expressions are equal, shown using the equals sign (=). To solve an equation, the goal is to get the letter alone on one side by performing the same operation on both sides of the equation.',
+                'For example, if a number is added to both sides, the same number must also be added to the other side, to keep the equation balanced.'
+            ],
+            examples:[
+                {
+                    problem:'Solve: x + 3 = 8.',
+                    solution:'Subtract 3 from both sides: x + 3 - 3 = 8 - 3, which gives x = 5.'
+                },
+                {
+                    problem:'Write an algebraic expression for "a number doubled, then increased by 4."',
+                    solution:'Let the number be n. Doubled means 2n. Increased by 4 means add 4. Expression: 2n + 4.'
+                }
+            ],
+            practice:[
+                {
+                    question:'Solve: x - 4 = 10.',
+                    answer:'x = 14 (add 4 to both sides).'
+                },
+                {
+                    question:'Solve: 3x = 21.',
+                    answer:'x = 7 (divide both sides by 3).'
+                },
+                {
+                    question:'Write an expression for "a number tripled, then reduced by 2."',
+                    answer:'3n - 2'
+                }
+            ]
         },
         {
             title:'Decimals',
-            objective:'Understand what decimal numbers are and how to compare them.',
-            explanation:'A decimal number uses a decimal point to show parts of a whole, such as 0.5 or 3.25. Numbers can be compared by looking at the digits after the decimal point.',
-            example:'Example: 0.75 is greater than 0.7 because 75 hundredths is more than 70 hundredths.'
+            objectives:[
+                'Understand place value in decimal numbers.',
+                'Compare and order decimal numbers.',
+                'Add and subtract simple decimal numbers.'
+            ],
+            explanation:[
+                'A decimal number uses a decimal point to separate the whole number part from the fractional part. Digits after the decimal point represent tenths, hundredths, thousandths, and so on.',
+                'To compare decimal numbers, first compare the whole number parts. If they are equal, compare the digits after the decimal point one place at a time, from left to right.',
+                'To add or subtract decimals, line up the decimal points so that digits of the same place value are aligned, then add or subtract as with whole numbers.'
+            ],
+            examples:[
+                {
+                    problem:'Which is greater, 0.75 or 0.7?',
+                    solution:'Write 0.7 as 0.70 to compare more easily. 75 hundredths is greater than 70 hundredths, so 0.75 is greater.'
+                },
+                {
+                    problem:'Add 3.25 and 1.5.',
+                    solution:'Line up the decimal points: 3.25 + 1.50 = 4.75.'
+                }
+            ],
+            practice:[
+                {
+                    question:'Which is smaller, 0.4 or 0.38?',
+                    answer:'0.38 is smaller (0.40 versus 0.38 - compare hundredths: 0 < 8, so 0.38 < 0.40).'
+                },
+                {
+                    question:'Subtract 1.2 from 5.7.',
+                    answer:'4.5'
+                },
+                {
+                    question:'Arrange 2.05, 2.5 and 2.15 in ascending order.',
+                    answer:'2.05, 2.15, 2.5'
+                }
+            ]
         },
         {
             title:'Percentages',
-            objective:'Understand what a percentage is and how to calculate simple percentages.',
-            explanation:'A percentage shows an amount out of 100, using the symbol %. To find a percentage of a number, change the percentage to a fraction or decimal and multiply.',
-            example:'Example: 50% of 20 = 0.5 x 20 = 10.'
+            objectives:[
+                'Understand that a percentage represents a number out of 100.',
+                'Convert between percentages, fractions and decimals.',
+                'Calculate the percentage of a given quantity.'
+            ],
+            explanation:[
+                'A percentage shows an amount out of every 100, using the symbol %. For example, 25% means 25 out of 100.',
+                'To convert a percentage to a decimal, divide by 100 (move the decimal point two places to the left). To convert a percentage to a fraction, write it over 100 and simplify if possible.',
+                'To find the percentage of a quantity, convert the percentage to a decimal or fraction, then multiply it by the quantity.'
+            ],
+            examples:[
+                {
+                    problem:'Find 50% of 20.',
+                    solution:'Convert 50% to a decimal: 0.5. Multiply: 0.5 x 20 = 10.'
+                },
+                {
+                    problem:'Find 25% of 60.',
+                    solution:'Convert 25% to a fraction: 1/4. Multiply: 60 divided by 4 = 15.'
+                }
+            ],
+            practice:[
+                {
+                    question:'Find 10% of 90.',
+                    answer:'9'
+                },
+                {
+                    question:'Find 75% of 40.',
+                    answer:'30'
+                },
+                {
+                    question:'Convert 40% to a fraction in its simplest form.',
+                    answer:'40/100 simplifies to 2/5.'
+                }
+            ]
         },
         {
             title:'Simple Equations',
-            objective:'Solve simple equations by finding the value of the unknown letter.',
-            explanation:'An equation is a statement that two expressions are equal. To solve it, perform the same operation on both sides until the letter is alone on one side.',
-            example:'Example: If x - 4 = 10, add 4 to both sides: x = 14.'
-        }
-    ],
-    "English Language": [
-        {
-            title:'Parts of Speech',
-            objective:'Identify nouns, verbs and adjectives in a sentence.',
-            explanation:'Every word in a sentence plays a role. A noun names a person, place or thing. A verb shows an action or state of being. An adjective describes a noun.',
-            example:'Example: In "The tall boy runs quickly," tall is an adjective and runs is a verb.'
+            objectives:[
+                'Understand what it means to solve an equation.',
+                'Solve one-step and simple two-step equations.',
+                'Check a solution by substituting it back into the original equation.'
+            ],
+            explanation:[
+                'An equation states that two expressions have equal value. Solving an equation means finding the value of the unknown letter that makes the statement true.',
+                'To solve an equation, perform inverse operations on both sides to isolate the unknown - for example, if a number is added, subtract it from both sides; if a number multiplies the unknown, divide both sides by it.',
+                'Always check your answer by substituting it back into the original equation to confirm both sides are equal.'
+            ],
+            examples:[
+                {
+                    problem:'Solve: x - 4 = 10.',
+                    solution:'Add 4 to both sides: x - 4 + 4 = 10 + 4, giving x = 14. Check: 14 - 4 = 10 ✓.'
+                },
+                {
+                    problem:'Solve: 2x + 3 = 11.',
+                    solution:'Subtract 3 from both sides: 2x = 8. Divide both sides by 2: x = 4. Check: 2(4) + 3 = 11 ✓.'
+                }
+            ],
+            practice:[
+                {
+                    question:'Solve: x + 7 = 15.',
+                    answer:'x = 8'
+                },
+                {
+                    question:'Solve: 5x = 35.',
+                    answer:'x = 7'
+                },
+                {
+                    question:'Solve: 3x - 2 = 10.',
+                    answer:'3x = 12, so x = 4.'
+                }
+            ]
         },
         {
-            title:'Sentence Types',
-            objective:'Identify and use the four main types of sentences.',
-            explanation:'A declarative sentence states a fact. An interrogative sentence asks a question. An imperative sentence gives a command. An exclamatory sentence shows strong feeling.',
-            example:'Example: "Close the door." is an imperative sentence. "What time is it?" is an interrogative sentence.'
+            title:'BODMAS (Order of Operations)',
+            objectives:[
+                'State the correct order in which to perform mathematical operations.',
+                'Apply BODMAS to simplify expressions involving more than one operation.',
+                'Recognise common mistakes that happen when the order of operations is ignored.'
+            ],
+            explanation:[
+                'When a calculation contains more than one operation, there is a fixed order for carrying them out, remembered using BODMAS: Brackets, Of (or Orders/powers), Division, Multiplication, Addition, Subtraction.',
+                'Work through the calculation in that order: first solve anything inside brackets, then powers or "of" (such as fractions of a quantity), then division and multiplication from left to right, and finally addition and subtraction from left to right.',
+                'Ignoring this order is one of the most common mistakes students make - for example, calculating 2 + 3 x 4 from left to right gives the wrong answer (20) instead of the correct answer (14), because multiplication must be done before addition.'
+            ],
+            examples:[
+                {
+                    problem:'Simplify: 2 + 3 x 4.',
+                    solution:'Multiplication comes before addition. First: 3 x 4 = 12. Then: 2 + 12 = 14.'
+                },
+                {
+                    problem:'Simplify: (5 + 3) x 2 - 4.',
+                    solution:'Brackets first: 5 + 3 = 8. Multiplication next: 8 x 2 = 16. Subtraction last: 16 - 4 = 12.'
+                }
+            ],
+            practice:[
+                {
+                    question:'Simplify: 6 + 2 x 5.',
+                    answer:'16 (multiply first: 2 x 5 = 10, then add: 6 + 10 = 16).'
+                },
+                {
+                    question:'Simplify: (10 - 4) x 3.',
+                    answer:'18 (brackets first: 10 - 4 = 6, then multiply: 6 x 3 = 18).'
+                },
+                {
+                    question:'Simplify: 20 / 4 + 3 x 2.',
+                    answer:'11 (division and multiplication first: 20/4=5 and 3x2=6, then add: 5 + 6 = 11).'
+                }
+            ]
         },
         {
-            title:'Comprehension Skills',
-            objective:'Understand how to read a passage carefully and answer questions about it.',
-            explanation:'Good comprehension means reading a passage slowly, noting the main idea of each paragraph, and looking back at the text to find answers rather than guessing.',
-            example:'Example: If asked "Why did the boy run home?", scan the passage for the sentence that explains his reason before answering.'
+            title:'Number Bases',
+            objectives:[
+                'Explain what a number base means, including base 2 (binary) and base 10 (decimal).',
+                'Convert numbers from base 2 to base 10.',
+                'Convert simple whole numbers from base 10 to base 2.'
+            ],
+            explanation:[
+                'The numbers we use every day are in base 10 (decimal), meaning each digit position represents a power of 10 (ones, tens, hundreds, and so on). Other number bases use a different number of digits and place values.',
+                'Base 2 (binary) uses only two digits, 0 and 1, and each position represents a power of 2 (1, 2, 4, 8, 16, and so on) instead of a power of 10. Binary numbers are the foundation of how computers store and process information.',
+                'To convert a binary number to base 10, multiply each digit by its place value (a power of 2) and add the results together. To convert a base 10 number to binary, repeatedly divide the number by 2 and record the remainders.'
+            ],
+            examples:[
+                {
+                    problem:'Convert 1011 (base 2) to base 10.',
+                    solution:'Place values from right to left are 1, 2, 4, 8. So: (1x8) + (0x4) + (1x2) + (1x1) = 8 + 0 + 2 + 1 = 11. Answer: 11 (base 10).'
+                },
+                {
+                    problem:'Convert 13 (base 10) to base 2.',
+                    solution:'13/2 = 6 remainder 1. 6/2 = 3 remainder 0. 3/2 = 1 remainder 1. 1/2 = 0 remainder 1. Reading the remainders from bottom to top: 1101. Answer: 1101 (base 2).'
+                }
+            ],
+            practice:[
+                {
+                    question:'Convert 101 (base 2) to base 10.',
+                    answer:'5 (place values 4,2,1: (1x4)+(0x2)+(1x1)=5).'
+                },
+                {
+                    question:'Convert 10 (base 10) to base 2.',
+                    answer:'1010 (10/2=5 r0, 5/2=2 r1, 2/2=1 r0, 1/2=0 r1 - reading bottom to top: 1010).'
+                },
+                {
+                    question:'What digits are used in base 2?',
+                    answer:'Only 0 and 1.'
+                }
+            ]
+        },
+        {
+            title:'Geometry: Plane Shapes and Angles',
+            objectives:[
+                'Identify common plane shapes and state their properties.',
+                'Classify angles as acute, right, obtuse, straight or reflex.',
+                'Measure and draw angles using a protractor.'
+            ],
+            explanation:[
+                'A plane shape is a flat, two-dimensional shape. Common plane shapes include the triangle (3 sides), square (4 equal sides, 4 right angles), rectangle (4 sides, opposite sides equal, 4 right angles), and circle (a round shape with no straight sides).',
+                'An angle is formed where two lines meet, and is measured in degrees. An acute angle is less than 90°, a right angle is exactly 90°, an obtuse angle is between 90° and 180°, a straight angle is exactly 180°, and a reflex angle is between 180° and 360°.',
+                'A protractor is the tool used to measure and draw angles accurately, placed with its centre point on the vertex (corner point) of the angle.'
+            ],
+            examples:[
+                {
+                    problem:'A shape has 4 sides, all equal in length, and 4 right angles. What shape is it?',
+                    solution:'This is a square, since it has 4 equal sides and 4 right angles (90° each).'
+                },
+                {
+                    problem:'An angle measures 120°. What type of angle is it?',
+                    solution:'Since 120° is between 90° and 180°, it is an obtuse angle.'
+                }
+            ],
+            practice:[
+                {
+                    question:'How many sides does a triangle have?',
+                    answer:'3 sides.'
+                },
+                {
+                    question:'What type of angle measures exactly 90°?',
+                    answer:'A right angle.'
+                },
+                {
+                    question:'An angle measures 45°. What type of angle is it?',
+                    answer:'An acute angle, since it is less than 90°.'
+                }
+            ]
+        },
+        {
+            title:'Statistics and Averages',
+            objectives:[
+                'Organise a set of data and represent it clearly.',
+                'Calculate the mean (average) of a set of numbers.',
+                'Identify the mode and range of a set of data.'
+            ],
+            explanation:[
+                'Statistics involves collecting, organising and interpreting data (information). Data is often arranged in a table or list to make it easier to study.',
+                'The mean (commonly called the average) is found by adding up all the values in a set of data and dividing by the number of values. The mode is the value that appears most often in the data.',
+                'The range shows how spread out the data is, and is found by subtracting the smallest value from the largest value.'
+            ],
+            examples:[
+                {
+                    problem:'Find the mean of: 4, 8, 6, 10, 2.',
+                    solution:'Add the numbers: 4+8+6+10+2 = 30. Divide by how many numbers there are (5): 30/5 = 6. Mean = 6.'
+                },
+                {
+                    problem:'Find the mode and range of: 3, 5, 3, 7, 3, 9.',
+                    solution:'Mode (most frequent value) = 3, since it appears three times. Range = largest - smallest = 9 - 3 = 6.'
+                }
+            ],
+            practice:[
+                {
+                    question:'Find the mean of: 10, 20, 30, 40.',
+                    answer:'25 (sum = 100, divided by 4 = 25).'
+                },
+                {
+                    question:'Find the mode of: 2, 4, 4, 6, 4, 8.',
+                    answer:'4 (it appears most often).'
+                },
+                {
+                    question:'Find the range of: 15, 3, 22, 9.',
+                    answer:'19 (largest 22 minus smallest 3).'
+                }
+            ]
         }
     ],
+
+    ICT: [
+        {
+            title:'Introduction to the Computer',
+            objectives:[
+                'Define a computer and list its major parts.',
+                'Distinguish between computer hardware and software.',
+                'Identify common input and output devices.'
+            ],
+            explanation:[
+                'A computer is an electronic device that accepts data (input), processes it, and produces useful information (output). It can store, retrieve and process information at high speed.',
+                'Hardware refers to the physical parts of a computer that can be touched, such as the monitor, keyboard, mouse and system unit. Software refers to the programs and instructions that tell the hardware what to do, such as Microsoft Word or a web browser.',
+                'Input devices allow a user to enter data into the computer (for example, a keyboard or mouse). Output devices allow the computer to display or produce results (for example, a monitor or printer).'
+            ],
+            examples:[
+                {
+                    problem:'Classify the following as hardware or software: monitor, Microsoft Word.',
+                    solution:'Monitor is hardware (a physical part you can touch). Microsoft Word is software (a program of instructions).'
+                },
+                {
+                    problem:'Is a printer an input or output device? Explain.',
+                    solution:'A printer is an output device, because it produces a printed result from the computer rather than sending data into it.'
+                }
+            ],
+            practice:[
+                {
+                    question:'Is a keyboard an input or output device?',
+                    answer:'Input device - it is used to enter data into the computer.'
+                },
+                {
+                    question:'Give one example of computer hardware.',
+                    answer:'Any physical part, e.g. monitor, keyboard, mouse, or system unit.'
+                },
+                {
+                    question:'What is the main difference between hardware and software?',
+                    answer:'Hardware is the physical, touchable parts of a computer; software is the set of programs/instructions that run on the hardware and cannot be touched.'
+                }
+            ]
+        },
+        {
+            title:'Uses of ICT in Everyday Life',
+            objectives:[
+                'List common uses of computers and ICT in daily life.',
+                'Explain how ICT is used in education, business and communication.',
+                'Describe simple safety and etiquette rules when using ICT devices.'
+            ],
+            explanation:[
+                'ICT (Information and Communication Technology) refers to tools and systems used to create, store, exchange and manage information, including computers, phones and the internet.',
+                'In education, ICT is used for online learning, research and typing assignments. In business, it is used for record keeping, communication and online transactions. In communication, it enables emails, video calls and instant messaging across long distances.',
+                'Good ICT etiquette includes being respectful in online messages, protecting personal information such as passwords, and not spending excessive, unsupervised time on devices.'
+            ],
+            examples:[
+                {
+                    problem:'Give one way ICT is used in education.',
+                    solution:'ICT allows students to study lessons online, research topics on the internet, and type and submit assignments electronically.'
+                },
+                {
+                    problem:'Why is it important to keep your password private?',
+                    solution:'Keeping a password private prevents other people from accessing your personal information or accounts without your permission.'
+                }
+            ],
+            practice:[
+                {
+                    question:'Give one example of ICT used in communication.',
+                    answer:'Any reasonable example, e.g. email, video calls, or instant messaging.'
+                },
+                {
+                    question:'Give one example of ICT used in business.',
+                    answer:'Any reasonable example, e.g. record keeping, online payments, or advertising.'
+                },
+                {
+                    question:'State one safety rule to follow when using the internet.',
+                    answer:'Any reasonable rule, e.g. never share personal passwords, or tell a trusted adult about suspicious messages.'
+                }
+            ]
+        },
+        {
+            title:'The Keyboard and Mouse',
+            objectives:[
+                'Identify the major sections of a computer keyboard.',
+                'State the functions of common special keys.',
+                'Describe the basic actions that can be performed with a mouse.'
+            ],
+            explanation:[
+                'The keyboard is divided into sections: the alphanumeric keys (letters and numbers), the function keys (F1-F12) along the top, the numeric keypad on the right, and special keys such as Enter, Shift, Ctrl and Space bar.',
+                'The Enter key confirms an action or moves to a new line. The Shift key is used to type capital letters or the upper symbol on a key. The Space bar inserts a blank space, and the Backspace/Delete keys remove typed characters.',
+                'A mouse is used to move the pointer on the screen. A single click selects an item, a double-click opens it, and the right-click usually opens a menu of extra options.'
+            ],
+            examples:[
+                {
+                    problem:'Which key would you press to type a capital letter?',
+                    solution:'The Shift key, held down while pressing the letter key.'
+                },
+                {
+                    problem:'What happens when you double-click an icon on the desktop?',
+                    solution:'Double-clicking usually opens the file, folder or program that the icon represents.'
+                }
+            ],
+            practice:[
+                {
+                    question:'What does the Enter key do?',
+                    answer:'It confirms an action or moves the cursor to a new line.'
+                },
+                {
+                    question:'What does a single left-click of the mouse usually do?',
+                    answer:'It selects an item on the screen.'
+                },
+                {
+                    question:'Where are the function keys (F1-F12) usually located on a keyboard?',
+                    answer:'Along the top row of the keyboard.'
+                }
+            ]
+        }
+    ],
+
+    "Basic Technology": [
+        {
+            title:'Introduction to Basic Technology',
+            objectives:[
+                'Explain the meaning of technology and Basic Technology as a school subject.',
+                'State the importance of Basic Technology to everyday life.',
+                'List career opportunities that studying Basic Technology can lead to.'
+            ],
+            explanation:[
+                'Technology refers to the application of knowledge and skills to create tools, machines and processes that solve human problems. Basic Technology is a school subject that introduces students to the foundational ideas behind technology, engineering and craft work.',
+                'Basic Technology is important because it develops practical skills, problem-solving ability, and an understanding of how everyday tools, machines and structures work.',
+                'Studying Basic Technology can lead to careers such as engineering, architecture, technical drawing, automobile technology, and various skilled trades.'
+            ],
+            examples:[
+                {
+                    problem:'Give one reason why Basic Technology is important to a student.',
+                    solution:'It helps develop practical, hands-on skills and problem-solving ability that can be applied to real-life situations, such as fixing simple household items.'
+                },
+                {
+                    problem:'Name one career that studying Basic Technology could prepare a student for.',
+                    solution:'Any reasonable answer, such as engineering, technical drawing, or automobile technology.'
+                }
+            ],
+            practice:[
+                {
+                    question:'What is technology?',
+                    answer:'The application of knowledge and skills to create tools, machines and processes that solve human problems.'
+                },
+                {
+                    question:'Name one skill developed by studying Basic Technology.',
+                    answer:'Any reasonable skill, e.g. problem-solving, practical/hands-on skills, or technical drawing.'
+                },
+                {
+                    question:'Give one career linked to Basic Technology.',
+                    answer:'Any reasonable career, e.g. engineering, architecture, or a skilled trade.'
+                }
+            ]
+        },
+        {
+            title:'Tools and Materials',
+            objectives:[
+                'Identify common hand tools used in Basic Technology.',
+                'State the correct use of common hand tools.',
+                'Explain basic safety precautions when using tools.'
+            ],
+            explanation:[
+                'Common hand tools used in Basic Technology include the hammer (for driving or removing nails), screwdriver (for tightening or loosening screws), pliers (for gripping, bending or cutting wire), and the tape rule (for measuring length).',
+                'Each tool has a specific purpose, and using the wrong tool for a task can damage the material or cause injury. For example, using pliers instead of a spanner on a nut can damage its edges.',
+                'Basic safety precautions include: always use a tool for its intended purpose, keep sharp or pointed tools away from the body, store tools properly after use, and wear protective gear such as goggles where needed.'
+            ],
+            examples:[
+                {
+                    problem:'Which tool would you use to tighten a screw?',
+                    solution:'A screwdriver, matched to the type and size of the screw head.'
+                },
+                {
+                    problem:'Why should tools be stored properly after use?',
+                    solution:'Proper storage prevents tools from causing accidental injury, keeps them from getting damaged or lost, and keeps the work area safe and organised.'
+                }
+            ],
+            practice:[
+                {
+                    question:'What tool is used for measuring length?',
+                    answer:'A tape rule (measuring tape).'
+                },
+                {
+                    question:'What tool is used for gripping, bending or cutting wire?',
+                    answer:'Pliers.'
+                },
+                {
+                    question:'State one safety precaution to follow when using tools.',
+                    answer:'Any reasonable precaution, e.g. use the correct tool for the task, or store tools safely after use.'
+                }
+            ]
+        },
+        {
+            title:'Introduction to Technical Drawing',
+            objectives:[
+                'State the meaning and importance of technical drawing.',
+                'Identify basic drawing instruments and their uses.',
+                'Draw simple geometric lines and shapes accurately.'
+            ],
+            explanation:[
+                'Technical drawing is a way of communicating the design of an object accurately using lines, symbols and measurements, so that it can be understood and built by others.',
+                'Common drawing instruments include the T-square (for drawing horizontal lines), set squares (for drawing vertical and angled lines), a compass (for drawing circles and arcs), and a scale rule (for measuring and drawing to scale).',
+                'Accuracy is very important in technical drawing, since a small error can lead to a badly made object. Lines must be drawn cleanly, and measurements should always be double-checked.'
+            ],
+            examples:[
+                {
+                    problem:'Which instrument would you use to draw a perfect circle?',
+                    solution:'A compass.'
+                },
+                {
+                    problem:'Why must technical drawings be accurate?',
+                    solution:'Because the drawing guides how an object will actually be built - an inaccurate drawing can lead to parts that do not fit together correctly.'
+                }
+            ],
+            practice:[
+                {
+                    question:'What instrument is used to draw horizontal lines across a drawing board?',
+                    answer:'A T-square.'
+                },
+                {
+                    question:'What is technical drawing used for?',
+                    answer:'To communicate the design of an object accurately using lines, symbols and measurements.'
+                },
+                {
+                    question:'Name one drawing instrument other than a pencil.',
+                    answer:'Any reasonable instrument, e.g. T-square, set square, compass, or scale rule.'
+                }
+            ]
+        }
+    ],
+
     "Basic Science": [
         {
             title:'Living and Non-Living Things',
-            objective:'Distinguish between living and non-living things and identify their characteristics.',
-            explanation:'Living things can grow, reproduce, respond to their environment, and need food and air. Non-living things do not show these characteristics, such as a stone or a chair.',
-            example:'Example: A plant is living because it grows and needs water, while a table is non-living because it cannot grow or respond.'
+            objectives:[
+                'List the characteristics that distinguish living things from non-living things.',
+                'Classify given examples as living or non-living.',
+                'Explain why each characteristic is important for identifying life.'
+            ],
+            explanation:[
+                'Living things share several characteristics: they can grow, reproduce (make more of their own kind), respond to changes in their environment, and require food, water and air (or similar substances) to survive.',
+                'Non-living things do not show these characteristics. They do not grow biologically, cannot reproduce, and do not respond to stimuli on their own.',
+                'Some non-living things, like a growing crystal, may appear to "grow," but this is a physical process, not biological growth, and they cannot reproduce or respond to their environment.'
+            ],
+            examples:[
+                {
+                    problem:'Is a mango tree living or non-living? Explain.',
+                    solution:'Living. A mango tree grows taller over time, produces seeds to reproduce, and responds to sunlight by growing towards it.'
+                },
+                {
+                    problem:'Is a wooden chair living or non-living? Explain.',
+                    solution:'Non-living. A wooden chair does not grow, reproduce, or respond to its surroundings.'
+                }
+            ],
+            practice:[
+                {
+                    question:'Is a fish living or non-living? Give one reason.',
+                    answer:'Living - for example, it needs water and oxygen to survive, and it can reproduce.'
+                },
+                {
+                    question:'Is a stone living or non-living? Give one reason.',
+                    answer:'Non-living - it does not grow, reproduce or respond to its environment.'
+                },
+                {
+                    question:'Name two characteristics that all living things share.',
+                    answer:'Any two of: growth, reproduction, response to stimuli, need for food/air/water, movement, respiration.'
+                }
+            ]
         },
         {
             title:'The Human Body',
-            objective:'Identify the major organs of the human body and their basic functions.',
-            explanation:'The body has organs that work together in systems. The heart pumps blood, the lungs help us breathe, and the brain controls the body.',
-            example:'Example: When you run, your heart beats faster to pump more blood carrying oxygen to your muscles.'
+            objectives:[
+                'Identify the major organs of the human body.',
+                'State the basic function of each major organ.',
+                'Explain how organs work together as part of a system.'
+            ],
+            explanation:[
+                'The human body is made up of organs that work together in groups called systems. The heart is the main organ of the circulatory system and pumps blood around the body.',
+                'The lungs are the main organs of the respiratory system and allow the body to take in oxygen and remove carbon dioxide through breathing.',
+                'The brain is the control centre of the nervous system, responsible for thinking, coordinating movement, and controlling other organs.'
+            ],
+            examples:[
+                {
+                    problem:'What happens to the heart when you exercise, and why?',
+                    solution:'The heart beats faster during exercise because the muscles need more oxygen, so the heart pumps blood more quickly to deliver it.'
+                },
+                {
+                    problem:'Which organ controls your ability to think and move your arm?',
+                    solution:'The brain, as part of the nervous system, controls thinking and sends signals to move the muscles in the arm.'
+                }
+            ],
+            practice:[
+                {
+                    question:'Which organ pumps blood around the body?',
+                    answer:'The heart.'
+                },
+                {
+                    question:'Which organs help you breathe?',
+                    answer:'The lungs.'
+                },
+                {
+                    question:'Why do organs need to work together in systems?',
+                    answer:'Because no single organ can carry out all the functions needed to keep the body alive - each organ has a specific role, and systems coordinate these roles together.'
+                }
+            ]
         },
         {
             title:'States of Matter',
-            objective:'Identify solids, liquids and gases and describe their properties.',
-            explanation:'Matter exists in three common states. A solid has a fixed shape and volume. A liquid has a fixed volume but takes the shape of its container. A gas has no fixed shape or volume.',
-            example:'Example: Ice is a solid, water is a liquid, and steam is a gas - all the same substance in different states.'
+            objectives:[
+                'Identify the three common states of matter: solid, liquid and gas.',
+                'Describe the properties of each state of matter.',
+                'Give everyday examples of substances changing from one state to another.'
+            ],
+            explanation:[
+                'Matter exists mainly in three states. A solid has a fixed shape and a fixed volume - its particles are tightly packed and do not move around freely.',
+                'A liquid has a fixed volume but no fixed shape - it takes the shape of whatever container it is placed in. Its particles are close together but can move past one another.',
+                'A gas has neither a fixed shape nor a fixed volume - it spreads out to fill any container it is placed in. Its particles are far apart and move freely and quickly.'
+            ],
+            examples:[
+                {
+                    problem:'Ice, water and steam are all the same substance. Identify the state of each and explain what causes the change between them.',
+                    solution:'Ice is a solid, water is a liquid, and steam is a gas. Heating ice causes it to melt into water (solid to liquid), and further heating causes water to evaporate into steam (liquid to gas).'
+                },
+                {
+                    problem:'Why can a gas fill an entire balloon, while a solid cannot change shape to do the same?',
+                    solution:'Gas particles move freely and spread out to fill any available space, while solid particles are tightly held in fixed positions and cannot move to fill a different shape.'
+                }
+            ],
+            practice:[
+                {
+                    question:'What state of matter has a fixed shape and fixed volume?',
+                    answer:'Solid.'
+                },
+                {
+                    question:'What happens when a liquid is heated enough?',
+                    answer:'It can change into a gas (evaporation/boiling).'
+                },
+                {
+                    question:'Give one everyday example of matter changing from a liquid to a solid.',
+                    answer:'Water freezing into ice in a freezer.'
+                }
+            ]
         }
     ]
 };
+
+
+// ---- Custom topics saved via the Lesson Editor (this device only) ----
+
+function loadCustomLessons(){
+    try{
+        var raw = localStorage.getItem('excellentia_custom_lessons');
+        return raw ? JSON.parse(raw) : {};
+    } catch(e){
+        return {};
+    }
+}
+
+function getTopicsForSubject(subject){
+
+    var builtIn = (lessonData[subject] || []).slice();
+    var custom = loadCustomLessons();
+    var customTopics = custom[subject] || [];
+
+    if(customTopics.length === 0){
+        return builtIn;
+    }
+
+    // Custom topics override a built-in topic with the same title,
+    // or get appended as new topics.
+    var merged = builtIn.slice();
+
+    customTopics.forEach(function(customTopic){
+        var existingIndex = merged.findIndex(function(t){ return t.title === customTopic.title; });
+        if(existingIndex !== -1){
+            merged[existingIndex] = customTopic;
+        } else {
+            merged.push(customTopic);
+        }
+    });
+
+    return merged;
+}
 
 
 // ---- State ----
@@ -490,7 +1267,7 @@ function getParams(){
 
 function renderTopicList(){
 
-    var topics = lessonData[currentSubject] || [];
+    var topics = getTopicsForSubject(currentSubject);
     var list = document.getElementById('topicList');
     list.innerHTML = '';
 
@@ -502,7 +1279,7 @@ function renderTopicList(){
         item.innerHTML =
             '<div>' +
                 '<h3>' + (index + 1) + '. ' + topic.title + '</h3>' +
-                '<p>' + topic.objective + '</p>' +
+                '<p>' + topic.objectives[0] + '</p>' +
             '</div>' +
             '<div class="topic-arrow">&rsaquo;</div>';
 
@@ -523,7 +1300,7 @@ function showTopicList(){
 
 function goToLesson(index){
 
-    var topics = lessonData[currentSubject] || [];
+    var topics = getTopicsForSubject(currentSubject);
 
     if(index < 0 || index >= topics.length){
         return;
@@ -533,9 +1310,45 @@ function goToLesson(index){
     var topic = topics[index];
 
     document.getElementById('lessonTitle').innerText = topic.title;
-    document.getElementById('lessonObjective').innerText = topic.objective;
-    document.getElementById('lessonExplanation').innerText = topic.explanation;
-    document.getElementById('lessonExample').innerText = topic.example;
+
+    // Objectives
+    var objectivesHtml = '';
+    topic.objectives.forEach(function(obj){
+        objectivesHtml += '<li>' + obj + '</li>';
+    });
+    document.getElementById('lessonObjectives').innerHTML = objectivesHtml;
+
+    // Explanation
+    var explanationHtml = '';
+    topic.explanation.forEach(function(para){
+        explanationHtml += '<p>' + para + '</p>';
+    });
+    document.getElementById('lessonExplanation').innerHTML = explanationHtml;
+
+    // Examples
+    var examplesHtml = '';
+    topic.examples.forEach(function(ex, i){
+        examplesHtml +=
+            '<div class="example-box">' +
+                '<div class="ex-label">Example ' + (i + 1) + '</div>' +
+                '<div class="ex-problem">' + ex.problem + '</div>' +
+                '<div class="ex-solution">' + ex.solution + '</div>' +
+            '</div>';
+    });
+    document.getElementById('lessonExamples').innerHTML = examplesHtml;
+
+    // Practice questions
+    var practiceHtml = '';
+    topic.practice.forEach(function(pq, i){
+        var answerId = 'pqAnswer_' + i;
+        practiceHtml +=
+            '<div class="practice-item">' +
+                '<div class="pq-question">' + (i + 1) + '. ' + pq.question + '</div>' +
+                '<button class="reveal-btn" onclick="toggleAnswer(\'' + answerId + '\')">Show Answer</button>' +
+                '<div class="pq-answer" id="' + answerId + '">' + pq.answer + '</div>' +
+            '</div>';
+    });
+    document.getElementById('lessonPractice').innerHTML = practiceHtml;
 
     document.getElementById('prevBtn').disabled = (index === 0);
     document.getElementById('nextBtn').disabled = (index === topics.length - 1);
@@ -544,6 +1357,13 @@ function goToLesson(index){
     document.getElementById('lessonView').style.display = 'block';
 
     window.scrollTo(0, 0);
+}
+
+
+// ---- Toggle a practice-question answer ----
+
+function toggleAnswer(id){
+    document.getElementById(id).classList.toggle('show');
 }
 
 
@@ -561,7 +1381,7 @@ function setupPage(){
     document.getElementById('backToClassLink').href =
         'classes.html?class=' + currentClass;
 
-    if(!lessonData[currentSubject]){
+    if(!lessonData[currentSubject] && getTopicsForSubject(currentSubject).length === 0){
         document.getElementById('topicList').innerHTML =
             '<p style="text-align:center;color:#666;">Lessons for ' + currentSubject +
             ' are coming soon.</p>';
