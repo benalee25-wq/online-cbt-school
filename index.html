@@ -461,15 +461,6 @@ input{
         </div>
 
         <div class="card subject-card"
-             onclick="openSubject('English Language')">
-            <div class="subject-icon">📖</div>
-            <h3>English Language</h3>
-            <p>
-                Grammar, comprehension, vocabulary and writing.
-            </p>
-        </div>
-
-        <div class="card subject-card"
              onclick="openSubject('Basic Science')">
             <div class="subject-icon">🔬</div>
             <h3>Basic Science</h3>
@@ -488,20 +479,11 @@ input{
         </div>
 
         <div class="card subject-card"
-             onclick="openSubject('Computer Studies')">
+             onclick="openSubject('ICT')">
             <div class="subject-icon">💻</div>
-            <h3>Computer Studies</h3>
+            <h3>ICT</h3>
             <p>
                 Discover computers, digital skills and technology.
-            </p>
-        </div>
-
-        <div class="card subject-card"
-             onclick="openSubject('Social Studies')">
-            <div class="subject-icon">🌍</div>
-            <h3>Social Studies</h3>
-            <p>
-                Understand society, culture and responsible living.
             </p>
         </div>
 
@@ -802,11 +784,7 @@ function selectClass(className){
 // ---- Subject selection ----
 
 function openSubject(subjectName){
-    showInfo(
-        subjectName,
-        'Lessons for ' + subjectName + ' are coming soon. ' +
-        'We are adding topics and lessons for this subject next.'
-    );
+    window.location.href = 'lessons.html?subject=' + encodeURIComponent(subjectName) + '&class=JSS1';
 }
 
 
