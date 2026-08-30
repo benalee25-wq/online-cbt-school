@@ -1,1 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Lesson Editor - Excellentia Digital Academy</title>
+
+<meta name="description" content="Excellentia Digital Academy - Lesson Editor">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f5f7fa;
+    color:#222;
+    line-height:1.6;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+.header{
+    background:#075e54;
+    color:white;
+    padding:18px 20px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:19px;
+    font-weight:bold;
+}
+
+.badge{
+    background:#d9a017;
+    color:#3a2c00;
+    font-size:12px;
+    font-weight:bold;
+    padding:3px 10px;
+    border-radius:20px;
+    margin-left:8px;
+}
+
+.page-hero{
+    background:linear-gradient(135deg,#075e54,#0a8f7f);
+    color:white;
+    text-align:center;
+    padding:30px 20px;
+}
+
+.page-hero h1{
+    font-size:24px;
+    margin-bottom:6px;
+}
+
+.page-hero p{
+    font-size:14px;
+    opacity:.95;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:20px 16px;
+}
+
+.notice{
+    background:#fdf7e8;
+    border-left:4px solid #d9a017;
+    border-radius:8px;
+    padding:14px 16px;
+    margin-bottom:20px;
+    font-size:14px;
+    color:#5c4a0d;
+}
+
+.card{
+    background:white;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+    margin-bottom:20px;
+}
+
+.card h2{
+    color:#075e54;
+    font-size:18px;
+    margin-bottom:14px;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    font-size:13px;
+    color:#075e54;
+    text-transform:uppercase;
+    letter-spacing:.3px;
+    margin-bottom:6px;
+    margin-top:14px;
+}
+
+label:first-of-type{
+    margin-top:0;
+}
+
+.hint{
+    font-size:12px;
+    color:#888;
+    margin-bottom:6px;
+}
+
+input[type="text"], select, textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:9px;
+    font-size:15px;
+    font-family:inherit;
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+.btn{
+    display:inline-block;
+    background:white;
+    color:#075e54;
+    padding:12px 20px;
+    border-radius:10px;
+    font-weight:bold;
+    border:2px solid #075e54;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.btn-primary{
+    background:#075e54;
+    color:white;
+}
+
+.btn-danger{
+    border-color:#b02a2a;
+    color:#b02a2a;
+}
+
+.full-btn{
+    width:100%;
+    margin-top:16px;
+}
+
+.btn-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.topic-row{
+    background:#f5f7fa;
+    border-radius:10px;
+    padding:12px 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+    gap:10px;
+}
+
+.topic-row-info{
+    flex:1;
+}
+
+.topic-row-info .tag{
+    display:inline-block;
+    background:#e8f5f3;
+    color:#075e54;
+    font-size:11px;
+    font-weight:bold;
+    padding:2px 8px;
+    border-radius:20px;
+    margin-bottom:4px;
+}
+
+.topic-row-info h4{
+    font-size:14px;
+    color:#222;
+}
+
+.topic-row-actions{
+    display:flex;
+    gap:6px;
+}
+
+.topic-row-actions button{
+    padding:6px 10px;
+    font-size:13px;
+    border-radius:8px;
+}
+
+.empty-note{
+    color:#666;
+    font-size:14px;
+    text-align:center;
+    padding:10px;
+}
+
+#exportBox{
+    width:100%;
+    min-height:200px;
+    font-family:monospace;
+    font-size:12px;
+    background:#f5f7fa;
+}
+
+.footer{
+    background:#073f3a;
+    color:white;
+    text-align:center;
+    padding:25px 18px;
+    margin-top:20px;
+}
+
+.footer p{
+    margin:5px 0;
+    font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+    <div class="header-inner">
+        <div class="logo">Excellentia Digital Academy <span class="badge">Admin</span></div>
+        <a href="index.html" style="color:white;font-size:14px;">Exit</a>
+    </div>
+</header>
+
+
+<!-- PAGE HERO -->
+
+<section class="page-hero">
+    <h1>Lesson Editor</h1>
+    <p>Add or edit lesson topics without touching code.</p>
+</section>
+
+
+<div class="container">
+
+    <div class="notice">
+        <strong>How this works:</strong> topics you save here are stored only on
+        this phone/browser, so you can preview them right away on this device.
+        To make them visible to <strong>every student</strong> on the real
+        website, scroll down, tap <strong>"Export Code"</strong>, copy the
+        result, and paste it into <code>lessons.html</code> in GitHub as
+        described in the export box.
+    </div>
+
+
+    <!-- EDITOR FORM -->
+
+    <div class="card">
+        <h2 id="formHeading">Add / Edit a Topic</h2>
+
+        <label>Subject</label>
+        <select id="fieldSubject">
+            <option value="Mathematics">Mathematics</option>
+            <option value="Basic Science">Basic Science</option>
+            <option value="Basic Technology">Basic Technology</option>
+            <option value="ICT">ICT</option>
+            <option value="__other__">Other (type new subject)</option>
+        </select>
+
+        <input type="text" id="fieldSubjectOther" placeholder="Type new subject name"
+               style="display:none;margin-top:8px;">
+
+        <label>Topic Title</label>
+        <input type="text" id="fieldTitle" placeholder="e.g. Ratio and Proportion">
+
+        <label>Learning Objectives</label>
+        <div class="hint">One objective per line.</div>
+        <textarea id="fieldObjectives" placeholder="Understand what a ratio is&#10;Simplify ratios to their lowest form&#10;Solve simple ratio word problems"></textarea>
+
+        <label>Explanation</label>
+        <div class="hint">One paragraph per line.</div>
+        <textarea id="fieldExplanation" placeholder="A ratio compares two quantities...&#10;To simplify a ratio, divide both sides by their highest common factor..."></textarea>
+
+        <label>Worked Examples</label>
+        <div class="hint">Type the problem, then its solution on the next line. Repeat for more examples.</div>
+        <textarea id="fieldExamples" placeholder="Simplify the ratio 8:12.&#10;Divide both sides by 4: 2:3.&#10;Share 20 sweets in the ratio 2:3.&#10;Total parts = 5. Each part = 4. Shares: 8 and 12."></textarea>
+
+        <label>Practice Questions</label>
+        <div class="hint">Type the question, then its answer on the next line. Repeat for more questions.</div>
+        <textarea id="fieldPractice" placeholder="Simplify the ratio 10:15.&#10;2:3&#10;Share 30 in the ratio 1:2.&#10;10 and 20"></textarea>
+
+        <div class="btn-row full-btn">
+            <button class="btn btn-primary" onclick="saveTopic()" style="flex:1;">Save Topic</button>
+            <button class="btn" onclick="clearForm()" style="flex:1;">Clear Form</button>
+        </div>
+    </div>
+
+
+    <!-- SAVED TOPICS LIST -->
+
+    <div class="card">
+        <h2>Your Saved Topics (this device)</h2>
+        <div id="savedTopicsList"></div>
+    </div>
+
+
+    <!-- EXPORT -->
+
+    <div class="card">
+        <h2>Export Code</h2>
+        <p style="font-size:14px;color:#555;margin-bottom:10px;">
+            Tap the button, then copy the code below and paste it into the
+            <code>lessonData</code> section of <code>lessons.html</code> in
+            GitHub, inside the right subject's array, then commit. This makes
+            your saved topics visible to every student.
+        </p>
+        <button class="btn btn-primary full-btn" onclick="generateExport()">Generate Export Code</button>
+        <textarea id="exportBox" readonly style="margin-top:12px;display:none;"></textarea>
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+    <p>Excellentia Digital Academy - Admin Tool</p>
+    <p>Changes here are local to this device until exported.</p>
+</footer>
+
+
+<script>
+
+var STORAGE_KEY = 'excellentia_custom_lessons';
+var editingId = null; // subject + '::' + title of topic currently being edited (original), or null for new
+
+
+// ---- Storage helpers ----
+
+function loadCustomLessons(){
+    try{
+        var raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+    } catch(e){
+        return {};
+    }
+}
+
+function saveCustomLessons(data){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+
+// ---- Subject dropdown "Other" toggle ----
+
+document.getElementById('fieldSubject').addEventListener('change', function(){
+    var other = document.getElementById('fieldSubjectOther');
+    other.style.display = (this.value === '__other__') ? 'block' : 'none';
+});
+
+
+// ---- Parse helpers ----
+
+function linesToArray(text){
+    return text.split('\n')
+        .map(function(l){ return l.trim(); })
+        .filter(function(l){ return l.length > 0; });
+}
+
+function pairsToArray(text, keyA, keyB){
+    var lines = linesToArray(text);
+    var result = [];
+    for(var i = 0; i < lines.length; i += 2){
+        if(lines[i+1] !== undefined){
+            var obj = {};
+            obj[keyA] = lines[i];
+            obj[keyB] = lines[i+1];
+            result.push(obj);
+        }
+    }
+    return result;
+}
+
+function arrayToLines(arr){
+    return arr.join('\n');
+}
+
+function pairsToLines(arr, keyA, keyB){
+    var lines = [];
+    arr.forEach(function(item){
+        lines.push(item[keyA]);
+        lines.push(item[keyB]);
+    });
+    return lines.join('\n');
+}
+
+
+// ---- Get current subject value from form ----
+
+function getFormSubject(){
+    var select = document.getElementById('fieldSubject');
+    if(select.value === '__other__'){
+        return document.getElementById('fieldSubjectOther').value.trim();
+    }
+    return select.value;
+}
+
+
+// ---- Save (add or update) a topic ----
+
+function saveTopic(){
+
+    var subject = getFormSubject();
+    var title = document.getElementById('fieldTitle').value.trim();
+
+    if(!subject || !title){
+        alert('Please fill in both the Subject and Topic Title.');
+        return;
+    }
+
+    var objectives = linesToArray(document.getElementById('fieldObjectives').value);
+    var explanation = linesToArray(document.getElementById('fieldExplanation').value);
+    var examples = pairsToArray(document.getElementById('fieldExamples').value, 'problem', 'solution');
+    var practice = pairsToArray(document.getElementById('fieldPractice').value, 'question', 'answer');
+
+    if(objectives.length === 0 || explanation.length === 0 || examples.length === 0 || practice.length === 0){
+        alert('Please fill in at least one objective, one explanation paragraph, one example, and one practice question.');
+        return;
+    }
+
+    var topic = {
+        title: title,
+        objectives: objectives,
+        explanation: explanation,
+        examples: examples,
+        practice: practice
+    };
+
+    var data = loadCustomLessons();
+    if(!data[subject]){
+        data[subject] = [];
+    }
+
+    // If editing an existing saved topic under a different subject/title, remove the old one
+    if(editingId){
+        var parts = editingId.split('::');
+        var oldSubject = parts[0];
+        var oldTitle = parts[1];
+        if(data[oldSubject]){
+            data[oldSubject] = data[oldSubject].filter(function(t){ return t.title !== oldTitle; });
+        }
+    }
+
+    // Remove any existing topic in the target subject with the same title (so saving again overwrites it)
+    data[subject] = data[subject].filter(function(t){ return t.title !== title; });
+    data[subject].push(topic);
+
+    saveCustomLessons(data);
+    clearForm();
+    renderSavedTopics();
+
+    alert('Saved! You can preview it now on this device, or scroll down to export it for everyone.');
+}
+
+
+// ---- Clear the form ----
+
+function clearForm(){
+    document.getElementById('fieldSubject').value = 'Mathematics';
+    document.getElementById('fieldSubjectOther').style.display = 'none';
+    document.getElementById('fieldSubjectOther').value = '';
+    document.getElementById('fieldTitle').value = '';
+    document.getElementById('fieldObjectives').value = '';
+    document.getElementById('fieldExplanation').value = '';
+    document.getElementById('fieldExamples').value = '';
+    document.getElementById('fieldPractice').value = '';
+    document.getElementById('formHeading').innerText = 'Add / Edit a Topic';
+    editingId = null;
+}
+
+
+// ---- Load a saved topic into the form for editing ----
+
+function editTopic(subject, title){
+
+    var data = loadCustomLessons();
+    var topic = (data[subject] || []).find(function(t){ return t.title === title; });
+    if(!topic){ return; }
+
+    var select = document.getElementById('fieldSubject');
+    var knownSubjects = ['Mathematics', 'Basic Science', 'Basic Technology', 'ICT'];
+
+    if(knownSubjects.indexOf(subject) !== -1){
+        select.value = subject;
+        document.getElementById('fieldSubjectOther').style.display = 'none';
+    } else {
+        select.value = '__other__';
+        document.getElementById('fieldSubjectOther').style.display = 'block';
+        document.getElementById('fieldSubjectOther').value = subject;
+    }
+
+    document.getElementById('fieldTitle').value = topic.title;
+    document.getElementById('fieldObjectives').value = arrayToLines(topic.objectives);
+    document.getElementById('fieldExplanation').value = arrayToLines(topic.explanation);
+    document.getElementById('fieldExamples').value = pairsToLines(topic.examples, 'problem', 'solution');
+    document.getElementById('fieldPractice').value = pairsToLines(topic.practice, 'question', 'answer');
+
+    editingId = subject + '::' + title;
+    document.getElementById('formHeading').innerText = 'Editing: ' + title;
+
+    window.scrollTo(0, 0);
+}
+
+
+// ---- Delete a saved topic ----
+
+function deleteTopic(subject, title){
+
+    if(!confirm('Delete "' + title + '"? This cannot be undone.')){
+        return;
+    }
+
+    var data = loadCustomLessons();
+    if(data[subject]){
+        data[subject] = data[subject].filter(function(t){ return t.title !== title; });
+        if(data[subject].length === 0){
+            delete data[subject];
+        }
+    }
+    saveCustomLessons(data);
+    renderSavedTopics();
+}
+
+
+// ---- Render the list of saved topics ----
+
+function renderSavedTopics(){
+
+    var data = loadCustomLessons();
+    var container = document.getElementById('savedTopicsList');
+    container.innerHTML = '';
+
+    var subjects = Object.keys(data);
+    var hasAny = false;
+
+    subjects.forEach(function(subject){
+        (data[subject] || []).forEach(function(topic){
+            hasAny = true;
+            var row = document.createElement('div');
+            row.className = 'topic-row';
+
+            row.innerHTML =
+                '<div class="topic-row-info">' +
+                    '<div class="tag">' + subject + '</div>' +
+                    '<h4>' + topic.title + '</h4>' +
+                '</div>' +
+                '<div class="topic-row-actions">' +
+                    '<button class="btn" onclick="editTopic(\'' + subject.replace(/'/g,"\\'") + '\',\'' + topic.title.replace(/'/g,"\\'") + '\')">Edit</button>' +
+                    '<button class="btn btn-danger" onclick="deleteTopic(\'' + subject.replace(/'/g,"\\'") + '\',\'' + topic.title.replace(/'/g,"\\'") + '\')">Delete</button>' +
+                '</div>';
+
+            container.appendChild(row);
+        });
+    });
+
+    if(!hasAny){
+        container.innerHTML = '<p class="empty-note">No topics saved on this device yet.</p>';
+    }
+}
+
+
+// ---- Export code for pasting into lessons.html ----
+
+function generateExport(){
+
+    var data = loadCustomLessons();
+    var subjects = Object.keys(data);
+
+    if(subjects.length === 0){
+        alert('You have no saved topics to export yet.');
+        return;
+    }
+
+    var output = '';
+
+    subjects.forEach(function(subject){
+        output += '// ---- Paste into the "' + subject + '" array in lessons.html ----\n\n';
+        data[subject].forEach(function(topic){
+            output += formatTopicAsCode(topic) + ',\n\n';
+        });
+    });
+
+    var box = document.getElementById('exportBox');
+    box.style.display = 'block';
+    box.value = output;
+    box.scrollIntoView({behavior:'smooth'});
+}
+
+
+// ---- Format one topic object as JavaScript code ----
+
+function escapeText(str){
+    return str.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
+
+function formatTopicAsCode(topic){
+
+    var lines = [];
+    lines.push('{');
+    lines.push('    title:\'' + escapeText(topic.title) + '\',');
+
+    lines.push('    objectives:[');
+    topic.objectives.forEach(function(o, i){
+        lines.push('        \'' + escapeText(o) + '\'' + (i < topic.objectives.length - 1 ? ',' : ''));
+    });
+    lines.push('    ],');
+
+    lines.push('    explanation:[');
+    topic.explanation.forEach(function(e, i){
+        lines.push('        \'' + escapeText(e) + '\'' + (i < topic.explanation.length - 1 ? ',' : ''));
+    });
+    lines.push('    ],');
+
+    lines.push('    examples:[');
+    topic.examples.forEach(function(ex, i){
+        lines.push('        { problem:\'' + escapeText(ex.problem) + '\', solution:\'' + escapeText(ex.solution) + '\' }' + (i < topic.examples.length - 1 ? ',' : ''));
+    });
+    lines.push('    ],');
+
+    lines.push('    practice:[');
+    topic.practice.forEach(function(pq, i){
+        lines.push('        { question:\'' + escapeText(pq.question) + '\', answer:\'' + escapeText(pq.answer) + '\' }' + (i < topic.practice.length - 1 ? ',' : ''));
+    });
+    lines.push('    ]');
+
+    lines.push('}');
+
+    return lines.join('\n');
+}
+
+
+// ---- Page setup ----
+
+renderSavedTopics();
+
+</script>
+
+</body>
+</html>
